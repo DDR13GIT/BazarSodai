@@ -26,5 +26,18 @@ namespace BazarSodai.Controllers
 
             return View();
         }
+
+        public ActionResult Login()
+        {
+            ViewBag.Message = "Your login page.";
+
+            return View();
+        }
+        public ActionResult CreateAccount()
+        {
+            ViewBag.Message = "Your account creation page.";
+
+            return View();
+        }
     }
 }
