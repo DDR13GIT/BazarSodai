@@ -13,10 +13,10 @@ namespace BazarSodai
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ShopDatabaseEntities : DbContext
+    public partial class ShopDatabaseEntities1 : DbContext
     {
-        public ShopDatabaseEntities()
-            : base("name=ShopDatabaseEntities")
+        public ShopDatabaseEntities1()
+            : base("name=ShopDatabaseEntities1")
         {
         }
     

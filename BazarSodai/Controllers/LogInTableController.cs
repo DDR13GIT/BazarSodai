@@ -9,7 +9,7 @@ namespace BazarSodai.Controllers
     public class LogInTableController : Controller
     {
 
-        ShopDatabaseEntities shopdata = new ShopDatabaseEntities();
+        ShopDatabaseEntities1 shopdata = new ShopDatabaseEntities1();
         // GET: LogInTable
         public ActionResult Index()
         {
