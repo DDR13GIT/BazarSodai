@@ -209,6 +209,10 @@
     <Content Include="Views\LogInTable\Index.cshtml" />
     <Content Include="Views\LogInTable\Login.cshtml" />
     <Content Include="Views\LogInTable\CreateAccount.cshtml" />
+    <Content Include="Views\LogInTable\Contact.cshtml" />
+    <Content Include="Views\LogInTable\AboutUs.cshtml" />
+    <Content Include="Views\LogInTable\Cart.cshtml" />
+    <Content Include="Views\LogInTable\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
