@@ -1,8 +1,8 @@
 ﻿
+
 @{
     Layout = null;
 }
-
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="~/Content/nice-select.css">
     <link rel="stylesheet" href="~/Content/slick.min.css">
     <link rel="stylesheet" href="~/Content/style.css">
-    <link rel="stylesheet" href="~/Content/main-color05.css">
+    <link rel="stylesheet" href="~/Content/main-color.css">
 </head>
 <body class="biolife-body">
 
@@ -43,14 +43,13 @@
         <div class="header-top bg-main hidden-xs">
             <div class="container">
                 <div class="top-bar left">
-                    
+                   
                 </div>
                 <div class="top-bar right">
-                   
+                    
                     <ul class="horizontal-menu">
-                       
-                       
-                        <li><a href="Login" class="login-link"><i class="biolife-icon icon-login"></i>Login/Register</a></li>
+
+                        <li><a href="login" class="login-link"><i class="biolife-icon icon-login"></i>Login/Register</a></li>
                     </ul>
                 </div>
             </div>
@@ -59,12 +58,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
-                        <a href="Index" class="biolife-logo"><img src="~/images/organic-3.png" alt="biolife logo" width="135" height="34"></a>
+                        <a href="index-2.html" class="biolife-logo"><img src="~/images/organic-3.png" alt="biolife logo" width="135" height="34"></a>
                     </div>
                     <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
                         <div class="primary-menu">
                             <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
-                                <li class="menu-item"><a href="Index">Home</a></li>
+                                <li class="menu-item"><a href="~/LogInTable/Index">Home</a></li>
                                 <li class="menu-item menu-item-has-children has-megamenu">
                                     <a href="#" class="menu-name" data-title="Shop">Shop</a>
                                     <div class="wrap-megamenu lg-width-900 md-width-750">
@@ -153,8 +152,7 @@
                                         <li class="menu-item"><a href="#">Seasonal Fruit Plate</a></li>
                                     </ul>
                                 </li>
-                                
-                            
+                      
                                 <li class="menu-item"><a href="~/LogInTable/Contact">Contact</a></li>
                             </ul>
                         </div>
@@ -273,7 +271,7 @@
                                                 <li>
                                                     <div class="minicart-item">
                                                         <div class="thumb">
-                                                            <a href="#"><img src="~/images/minicart/pr-04.jpg" width="90" height="90" alt="National Fresh"></a>
+                                                            <a href="#"><img src="assets/images/minicart/pr-04.jpg" width="90" height="90" alt="National Fresh"></a>
                                                         </div>
                                                         <div class="left-info">
                                                             <div class="product-title"><a href="#" class="product-name">National Fresh Fruit</a></div>
@@ -644,64 +642,141 @@
     <div class="container">
         <nav class="biolife-nav">
             <ul>
-                <li class="nav-item"><a href="Index" class="permal-link">Home</a></li>
-                <li class="nav-item"><span class="current-page">Authentication</span></li>
+                <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
+                <li class="nav-item"><span class="current-page">ShoppingCart</span></li>
             </ul>
         </nav>
     </div>
 
-    <div class="page-contain login-page">
+    <div class="page-contain checkout">
 
         <!-- Main content -->
         <div id="main-content" class="main-content">
-            <div class="container">
-
+            <div class="container sm-margin-top-37px">
                 <div class="row">
 
-                    <!--Form Sign In-->
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div class="signin-container">
-                            <form action="~/LogInTable/Login" name="frm-login" method="post">
-                                <p class="form-row">
-                                    <label for="fid-name">Email Address:<span class="requite">*</span></label>
-                                    <input type="email" id="fid-name" name="Email" value="" class="txt-input">
-                                </p>
-                                <p class="form-row">
-                                    <label for="fid-pass">Password:<span class="requite">*</span></label>
-                                    <input type="password" id="fid-pass" name="Password" value="" class="txt-input">
-                                </p>
-                                <p class="form-row wrap-btn">
-                                    <button class="btn btn-submit btn-bold" type="submit">sign in</button>
-                                    <a href="#" class="link-to-help">Forgot your password</a>
-                                </p>
-                            </form>
+                    <!--checkout progress box-->
+                    <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                        <div class="checkout-progress-wrap">
+                            <ul class="steps">
+                                <li class="step 1st">
+                                    <div class="checkout-act active">
+                                        <h3 class="title-box"><span class="number">1</span>Customer</h3>
+                                        <div class="box-content">
+                                            <p class="txt-desc">Checking out as a <a class="pmlink" href="#">Guest?</a> You’ll be able to save your details to create an account with us later.</p>
+                                            <div class="login-on-checkout">
+                                                <form action="#" name="frm-login" method="post">
+                                                    <p class="form-row">
+                                                        <label for="input_email">Email Address</label>
+                                                        <input type="email" name="email" id="input_email" value="" placeholder="Your email">
+                                                        <button type="submit" name="btn-sbmt" class="btn">Continue As Guest</button>
+                                                    </p>
+                                                    <p class="form-row">
+                                                        <input type="checkbox" name="subcribe" id="input_subcribe">
+                                                        <label for="input_subcribe">Subscribe to our newsletter</label>
+                                                    </p>
+                                                    <p class="msg">Already have an account? <a href="~/LogInTable/Login" class="link-forward">Sign in now</a></p>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="step 2nd">
+                                    <div class="checkout-act"><h3 class="title-box"><span class="number">2</span>Shipping</h3></div>
+                                </li>
+                                <li class="step 3rd">
+                                    <div class="checkout-act"><h3 class="title-box"><span class="number">3</span>Billing</h3></div>
+                                </li>
+                                <li class="step 4th">
+                                    <div class="checkout-act"><h3 class="title-box"><span class="number">4</span>Payment</h3></div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
 
-                    <!--Go to Register form-->
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div class="register-in-container">
-                            <div class="intro">
-                                <h4 class="box-title">New Customer?</h4>
-                                <p class="sub-title">Create an account with us and you’ll be able to:</p>
-                                <ul class="lis">
-                                    <li>Check out faster</li>
-                                    <li>Save multiple shipping anddesses</li>
-                                    <li>Access your order history</li>
-                                    <li>Track new orders</li>
-                                    <li>Save items to your Wishlist</li>
+                    <!--Order Summary-->
+                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 sm-padding-top-48px sm-margin-bottom-0 xs-margin-bottom-15px">
+                        <div class="order-summary sm-margin-bottom-80px">
+                            <div class="title-block">
+                                <h3 class="title">Order Summary</h3>
+                                <a href="#" class="link-forward">Edit cart</a>
+                            </div>
+                            <div class="cart-list-box short-type">
+                                <span class="number">2 items</span>
+                                <ul class="cart-list">
+                                    <li class="cart-elem">
+                                        <div class="cart-item">
+                                            <div class="product-thumb">
+                                                <a class="prd-thumb" href="#">
+                                                    <figure><img src="~/images/shippingcart/pr-01.jpg" width="113" height="113" alt="shop-cart"></figure>
+                                                </a>
+                                            </div>
+                                            <div class="info">
+                                                <span class="txt-quantity">1X</span>
+                                                <a href="#" class="pr-name">National Fresh Fruit</a>
+                                            </div>
+                                            <div class="price price-contain">
+                                                <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
+                                                <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="cart-elem">
+                                        <div class="cart-item">
+                                            <div class="product-thumb">
+                                                <a class="prd-thumb" href="#">
+                                                    <figure><img src="~/images/shippingcart/pr-02.jpg" width="113" height="113" alt="shop-cart"></figure>
+                                                </a>
+                                            </div>
+                                            <div class="info">
+                                                <span class="txt-quantity">1X</span>
+                                                <a href="#" class="pr-name">National Fresh Fruit</a>
+                                            </div>
+                                            <div class="price price-contain">
+                                                <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
+                                                <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
+                                            </div>
+                                        </div>
+                                    </li>
                                 </ul>
-                                <a href="CreateAccount" class="btn btn-bold">Create an account</a>
+                                <ul class="subtotal">
+                                    <li>
+                                        <div class="subtotal-line">
+                                            <b class="stt-name">Subtotal</b>
+                                            <span class="stt-price">£170.00</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="subtotal-line">
+                                            <b class="stt-name">Shipping</b>
+                                            <span class="stt-price">£20.00</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="subtotal-line">
+                                            <b class="stt-name">Tax</b>
+                                            <span class="stt-price">£0.00</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="subtotal-line">
+                                            <a href="#" class="link-forward">Promo/Gift Certificate</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="subtotal-line">
+                                            <b class="stt-name">total:</b>
+                                            <span class="stt-price">£190.00</span>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
 
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
     <!-- FOOTER -->
@@ -792,9 +867,6 @@
                         <div class="separator sm-margin-top-70px xs-margin-top-40px"></div>
                     </div>
 
-                    <div class="col-lg-6 col-sm-6 col-xs-12">
-                       
-                    </div>
                 </div>
             </div>
         </div>
