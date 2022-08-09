@@ -2,8 +2,6 @@
 @{
     Layout = null;
 }
-
-
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
@@ -23,7 +21,7 @@
     <link rel="stylesheet" href="~/Content/nice-select.css">
     <link rel="stylesheet" href="~/Content/slick.min.css">
     <link rel="stylesheet" href="~/Content/style.css">
-    <link rel="stylesheet" href="~/Content/main-color05.css">
+    <link rel="stylesheet" href="~/Content/main-color.css">
 </head>
 <body class="biolife-body">
 
@@ -43,14 +41,13 @@
         <div class="header-top bg-main hidden-xs">
             <div class="container">
                 <div class="top-bar left">
-                    
+                   
                 </div>
                 <div class="top-bar right">
-                   
+
                     <ul class="horizontal-menu">
                        
-                       
-                        <li><a href="Login" class="login-link"><i class="biolife-icon icon-login"></i>Login/Register</a></li>
+                        <li><a href="login" class="login-link"><i class="biolife-icon icon-login"></i>Login/Register</a></li>
                     </ul>
                 </div>
             </div>
@@ -59,12 +56,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
-                        <a href="Index" class="biolife-logo"><img src="~/images/organic-3.png" alt="biolife logo" width="135" height="34"></a>
+                        <a href="index-2.html" class="biolife-logo"><img src="~/images/organic-3.png" alt="biolife logo" width="135" height="34"></a>
                     </div>
                     <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
                         <div class="primary-menu">
                             <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
-                                <li class="menu-item"><a href="Index">Home</a></li>
+                                <li class="menu-item"><a href="~/LogInTable/Index">Home</a></li>
                                 <li class="menu-item menu-item-has-children has-megamenu">
                                     <a href="#" class="menu-name" data-title="Shop">Shop</a>
                                     <div class="wrap-megamenu lg-width-900 md-width-750">
@@ -153,8 +150,8 @@
                                         <li class="menu-item"><a href="#">Seasonal Fruit Plate</a></li>
                                     </ul>
                                 </li>
-                                
-                            
+                      
+                   
                                 <li class="menu-item"><a href="~/LogInTable/Contact">Contact</a></li>
                             </ul>
                         </div>
@@ -644,60 +641,105 @@
     <div class="container">
         <nav class="biolife-nav">
             <ul>
-                <li class="nav-item"><a href="Index" class="permal-link">Home</a></li>
-                <li class="nav-item"><span class="current-page">Authentication</span></li>
+                <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
+                <li class="nav-item"><span class="current-page">About us</span></li>
             </ul>
         </nav>
     </div>
 
-    <div class="page-contain login-page">
+    <div class="page-contain about-us">
 
         <!-- Main content -->
         <div id="main-content" class="main-content">
-            <div class="container">
 
-                <div class="row">
-
-                    <!--Form Sign In-->
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div class="signin-container">
-                            <form action="~/LogInTable/Login" name="frm-login" method="post">
-                                <p class="form-row">
-                                    <label for="fid-name">Email Address:<span class="requite">*</span></label>
-                                    <input type="email" id="fid-name" name="Email" value="" class="txt-input">
-                                </p>
-                                <p class="form-row">
-                                    <label for="fid-pass">Password:<span class="requite">*</span></label>
-                                    <input type="password" id="fid-pass" name="Password" value="" class="txt-input">
-                                </p>
-                                <p class="form-row wrap-btn">
-                                    <button class="btn btn-submit btn-bold" type="submit">sign in</button>
-                                    <a href="#" class="link-to-help">Forgot your password</a>
-                                </p>
-                            </form>
-                        </div>
+            <div class="welcome-us-block">
+                <div class="container">
+                    <h4 class="title">Welcome to Biolife store!</h4>
+                    <div class="text-wraper">
+                        <p class="text-info">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur,</p>
+                        <p class="qt-text">“There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.”</p>
                     </div>
-
-                    <!--Go to Register form-->
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div class="register-in-container">
-                            <div class="intro">
-                                <h4 class="box-title">New Customer?</h4>
-                                <p class="sub-title">Create an account with us and you’ll be able to:</p>
-                                <ul class="lis">
-                                    <li>Check out faster</li>
-                                    <li>Save multiple shipping anddesses</li>
-                                    <li>Access your order history</li>
-                                    <li>Track new orders</li>
-                                    <li>Save items to your Wishlist</li>
-                                </ul>
-                                <a href="CreateAccount" class="btn btn-bold">Create an account</a>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
+            </div>
 
+            <div class="why-choose-us-block">
+                <div class="container">
+                    <h4 class="box-title">Why Choose us</h4>
+                    <b class="subtitle">Natural food is taken from the world's most modern farms with strict safety cycles</b>
+                    <div class="showcase">
+                        <div class="sc-child sc-left-position">
+                            <ul class="sc-list">
+                                <li>
+                                    <div class="sc-element color-01">
+                                        <span class="biolife-icon icon-fresh-drink"></span>
+                                        <div class="txt-content">
+                                            <span class="number">01</span>
+                                            <b class="title">Always Fresh</b>
+                                            <p class="desc">Natural products are kept in the best condition to ensure always fresh</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="sc-element color-02">
+                                        <span class="biolife-icon icon-healthy-about"></span>
+                                        <div class="txt-content">
+                                            <span class="number">02</span>
+                                            <b class="title">Overall Healthy</b>
+                                            <p class="desc">Natural products are kept in the best condition to ensure always fresh</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="sc-element color-03">
+                                        <span class="biolife-icon icon-green-safety"></span>
+                                        <div class="txt-content">
+                                            <span class="number">03</span>
+                                            <b class="title">Encironmental Safety</b>
+                                            <p class="desc">Natural products are kept in the best condition to ensure always fresh</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="sc-child sc-center-position">
+                            <figure><img src="~/images/about-us/bn04.jpg" alt="" width="622" height="656"></figure>
+                        </div>
+                        <div class="sc-child sc-right-position">
+                            <ul class="sc-list">
+                                <li>
+                                    <div class="sc-element color-04">
+                                        <span class="biolife-icon icon-capacity-about"></span>
+                                        <div class="txt-content">
+                                            <span class="number">04</span>
+                                            <b class="title">Antioxidant Capacity</b>
+                                            <p class="desc">Natural products are kept in the best condition to ensure always fresh</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="sc-element color-05">
+                                        <span class="biolife-icon icon-arteries-about"></span>
+                                        <div class="txt-content">
+                                            <span class="number">05</span>
+                                            <b class="title">Good For Arteries</b>
+                                            <p class="desc">Natural products are kept in the best condition to ensure always fresh</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="sc-element color-06">
+                                        <span class="biolife-icon icon-title"></span>
+                                        <div class="txt-content">
+                                            <span class="number">06</span>
+                                            <b class="title">Quality Standards</b>
+                                            <p class="desc">Natural products are kept in the best condition to ensure always fresh</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -719,7 +761,7 @@
                                     <span>(700)  9001-1909  (900) 689 -66</span>
                                 </p>
                             </div>
-
+                            
                         </section>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 md-margin-top-5px sm-margin-top-50px xs-margin-top-40px">
@@ -729,12 +771,12 @@
                                 <div class="col-lg-6 col-sm-6 col-xs-6">
                                     <div class="wrap-custom-menu vertical-menu-2">
                                         <ul class="menu">
-                                            <li><a href="~/LogInTable/AboutUs">About Us</a></li>
+                                            <li><a href="#">About Us</a></li>
                                             <li><a href="#">About Our Shop</a></li>
-
+                                            <li><a href="#">Secure Shopping</a></li>
                                             <li><a href="#">Delivery infomation</a></li>
                                             <li><a href="#">Privacy Policy</a></li>
-
+                                            <li><a href="#">Our Sitemap</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -743,9 +785,10 @@
                                         <ul class="menu">
                                             <li><a href="#">Who We Are</a></li>
                                             <li><a href="#">Our Services</a></li>
-                                            <li><a href="#">Our Sitemap</a></li>
+                                            <li><a href="#">Projects</a></li>
                                             <li><a href="#">Contacts Us</a></li>
-
+                                            <li><a href="#">Innovation</a></li>
+                                            <li><a href="#">Testimonials</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -760,7 +803,7 @@
                                     <li>
                                         <p class="info-item">
                                             <i class="biolife-icon icon-location"></i>
-                                            <b class="desc">Dhaka, Bangladesh </b>
+                                            <b class="desc">Dhaka,Bangladesh </b>
                                         </p>
                                     </li>
                                     <li>
@@ -783,7 +826,7 @@
                                     </li>
                                 </ul>
                             </div>
-
+                            
                         </section>
                     </div>
                 </div>
@@ -791,10 +834,8 @@
                     <div class="col-xs-12">
                         <div class="separator sm-margin-top-70px xs-margin-top-40px"></div>
                     </div>
-
-                    <div class="col-lg-6 col-sm-6 col-xs-12">
-                       
-                    </div>
+                    
+                    
                 </div>
             </div>
         </div>

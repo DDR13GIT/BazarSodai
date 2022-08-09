@@ -15,8 +15,24 @@ namespace BazarSodai.Controllers
         {
             return View();
         }
+        public ActionResult Contact()
+        {
+            return View();
+        }
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
+        public ActionResult Checkout()
+        {
+            return View();
+        }
+        public ActionResult Cart()
+        {
+            return View();
+        }
 
-    
+
         public ActionResult Login()
         {
 
@@ -29,7 +45,7 @@ namespace BazarSodai.Controllers
             temp.Password == user.Password).ToList();
             while (userAccounts.Count > 0)
             {
-                Console.WriteLine("hellllllooo");
+               
                 return RedirectToAction("Index", "LogInTable");
 
                // Response.Redirect("https://localhost:44375/LogInTable/Index");
