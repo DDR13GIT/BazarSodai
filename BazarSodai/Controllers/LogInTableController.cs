@@ -11,6 +11,8 @@ namespace BazarSodai.Controllers
 
         ShopDatabaseEntities1 shopdata = new ShopDatabaseEntities1();
         // GET: LogInTable
+
+        //[Route("logintable/index")]
         public ActionResult Index()
         {
             return View();
@@ -22,6 +24,7 @@ namespace BazarSodai.Controllers
 
             return View();
         }
+
         [HttpPost]
         public ActionResult Login([Bind(Include = "Email, Password")] LogInTable user)
         {
