@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BazarSodai
+namespace BazarSodai.Models
 {
     using System;
     using System.Collections.Generic;

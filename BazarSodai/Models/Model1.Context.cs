@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BazarSodai
+namespace BazarSodai.Models
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ShopDatabaseEntities1 : DbContext
+    public partial class ShopDatabaseEntities : DbContext
     {
-        public ShopDatabaseEntities1()
-            : base("name=ShopDatabaseEntities1")
+        public ShopDatabaseEntities()
+            : base("name=ShopDatabaseEntities")
         {
         }
     
@@ -25,6 +25,6 @@ namespace BazarSodai
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<LogInTable> LogInTable { get; set; }
+        public virtual DbSet<LogInTable> LogInTables { get; set; }
     }
 }

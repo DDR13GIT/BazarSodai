@@ -31,16 +31,16 @@
           <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="ShopDatabaseEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="LogInTable" EntityType="Self.LogInTable" />
+        <EntityContainer Name="ShopDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="LogInTables" EntityType="Self.LogInTable" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ShopDatabaseModelStoreContainer" CdmEntityContainer="ShopDatabaseEntities1">
-          <EntitySetMapping Name="LogInTable">
+        <EntityContainerMapping StorageEntityContainer="ShopDatabaseModelStoreContainer" CdmEntityContainer="ShopDatabaseEntities">
+          <EntitySetMapping Name="LogInTables">
             <EntityTypeMapping TypeName="ShopDatabaseModel.LogInTable">
               <MappingFragment StoreEntitySet="LogInTable">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -64,8 +64,8 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
