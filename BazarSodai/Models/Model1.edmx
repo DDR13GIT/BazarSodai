@@ -5,34 +5,34 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="ShopDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="LogInTable">
+        <EntityType Name="Users">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="UsersID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UsersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsersEmail" Type="varchar" MaxLength="50" />
+          <Property Name="UsersPhone" Type="varchar" MaxLength="50" />
+          <Property Name="UsersPassword" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="ShopDatabaseModelStoreContainer">
-          <EntitySet Name="LogInTable" EntityType="Self.LogInTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ShopDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="LogInTable">
+        <EntityType Name="User">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="UsersID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsersEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UsersPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UsersPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="ShopDatabaseEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="LogInTables" EntityType="Self.LogInTable" />
+          <EntitySet Name="Users" EntityType="Self.User" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -40,13 +40,13 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ShopDatabaseModelStoreContainer" CdmEntityContainer="ShopDatabaseEntities">
-          <EntitySetMapping Name="LogInTables">
-            <EntityTypeMapping TypeName="ShopDatabaseModel.LogInTable">
-              <MappingFragment StoreEntitySet="LogInTable">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ShopDatabaseModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+                <ScalarProperty Name="UsersEmail" ColumnName="UsersEmail" />
+                <ScalarProperty Name="UsersPhone" ColumnName="UsersPhone" />
+                <ScalarProperty Name="UsersPassword" ColumnName="UsersPassword" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

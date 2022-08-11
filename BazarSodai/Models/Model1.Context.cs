@@ -25,6 +25,6 @@ namespace BazarSodai.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<LogInTable> LogInTables { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

@@ -43,14 +43,14 @@ namespace BazarSodai.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login([Bind(Include = "Email, Password")] LogInTable user)
+        public ActionResult Login([Bind(Include = "UsersEmail, UsersPassword")] User newUser)
         {
-            List<LogInTable> userAccounts = db.LogInTables.Where(temp => temp.Email == user.Email &&
-            temp.Password == user.Password).ToList();
+            List<User> userAccounts = db.Users.Where(temp => temp.UsersEmail == newUser.UsersEmail &&
+            temp.UsersPassword == newUser.UsersPassword).ToList();
             while (userAccounts.Count > 0)
             {
                
-                return RedirectToAction("Index", "LogInTable");
+                return RedirectToAction("Index", "Users");
 
                // Response.Redirect("https://localhost:44375/LogInTable/Index");
 
@@ -66,11 +66,11 @@ namespace BazarSodai.Controllers
         }
         [HttpPost]
 
-        public ActionResult CreateAccount([Bind(Include = "Email, PhoneNo, Password")] LogInTable user)
+        public ActionResult CreateAccount([Bind(Include = "UsersEmail, UsersPhone, UsersPassword")] User newUser)
         {
             if (ModelState.IsValid)
             {
-              db.LogInTables.Add(user);
+              db.Users.Add(newUser);
                 db.SaveChanges();
                 Response.Redirect("https://localhost:44375/LogInTable/Login");
                 return View();

@@ -12,11 +12,11 @@ namespace BazarSodai.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class LogInTable
+    public partial class User
     {
-        public int ID { get; set; }
-        public string Email { get; set; }
-        public string PhoneNo { get; set; }
-        public string Password { get; set; }
+        public int UsersID { get; set; }
+        public string UsersEmail { get; set; }
+        public string UsersPhone { get; set; }
+        public string UsersPassword { get; set; }
     }
 }
