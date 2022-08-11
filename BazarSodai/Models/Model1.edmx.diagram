@@ -9,6 +9,8 @@
         <EntityTypeShape EntityType="ShopDatabaseModel.Category" Width="1.5" PointX="3.375" PointY="0.875" />
         <EntityTypeShape EntityType="ShopDatabaseModel.SubCategory" Width="1.5" PointX="5.625" PointY="0.875" />
         <AssociationConnector Association="ShopDatabaseModel.FK_SubCategory_Category" />
+        <EntityTypeShape EntityType="ShopDatabaseModel.Product" Width="1.5" PointX="5.625" PointY="4.375" />
+        <AssociationConnector Association="ShopDatabaseModel.FK_Products_Category" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

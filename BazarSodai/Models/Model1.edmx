@@ -13,6 +13,19 @@
           <Property Name="CategoryName" Type="varchar" MaxLength="50" />
           <Property Name="CategoryThumb" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductsID" />
+          </Key>
+          <Property Name="ProductsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProducsName" Type="varchar" MaxLength="50" />
+          <Property Name="ProductsPrice" Type="float" />
+          <Property Name="ProductsWeight" Type="float" />
+          <Property Name="ProductsImage" Type="varchar(max)" />
+          <Property Name="ProductsStock" Type="int" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="SubCategoryID" Type="int" />
+        </EntityType>
         <EntityType Name="SubCategory">
           <Key>
             <PropertyRef Name="SubCategoryID" />
@@ -30,6 +43,18 @@
           <Property Name="UsersPhone" Type="varchar" MaxLength="50" />
           <Property Name="UsersPassword" Type="varchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Products_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SubCategory_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="SubCategory" Type="Self.SubCategory" Multiplicity="*" />
@@ -44,8 +69,13 @@
         </Association>
         <EntityContainer Name="ShopDatabaseModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubCategory" EntityType="Self.SubCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Products_Category" Association="Self.FK_Products_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
           <AssociationSet Name="FK_SubCategory_Category" Association="Self.FK_SubCategory_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="SubCategory" EntitySet="SubCategory" />
@@ -72,6 +102,11 @@
             <End Role="Category" EntitySet="Categories" />
             <End Role="SubCategory" EntitySet="SubCategories" />
           </AssociationSet>
+          <EntitySet Name="Products" EntityType="ShopDatabaseModel.Product" />
+          <AssociationSet Name="FK_Products_Category" Association="ShopDatabaseModel.FK_Products_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Category">
           <Key>
@@ -81,6 +116,7 @@
           <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CategoryThumb" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SubCategories" Relationship="ShopDatabaseModel.FK_SubCategory_Category" FromRole="Category" ToRole="SubCategory" />
+          <NavigationProperty Name="Products" Relationship="ShopDatabaseModel.FK_Products_Category" FromRole="Category" ToRole="Product" />
         </EntityType>
         <EntityType Name="SubCategory">
           <Key>
@@ -99,6 +135,32 @@
               <PropertyRef Name="CategoryID" />
             </Principal>
             <Dependent Role="SubCategory">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductsID" />
+          </Key>
+          <Property Name="ProductsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProducsName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductsPrice" Type="Double" />
+          <Property Name="ProductsWeight" Type="Double" />
+          <Property Name="ProductsImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProductsStock" Type="Int32" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="SubCategoryID" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="ShopDatabaseModel.FK_Products_Category" FromRole="Product" ToRole="Category" />
+        </EntityType>
+        <Association Name="FK_Products_Category">
+          <End Type="ShopDatabaseModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="ShopDatabaseModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Product">
               <PropertyRef Name="CategoryID" />
             </Dependent>
           </ReferentialConstraint>
@@ -134,6 +196,20 @@
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="SubCategoryName" ColumnName="SubCategoryName" />
                 <ScalarProperty Name="SubCategoryID" ColumnName="SubCategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="ShopDatabaseModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="SubCategoryID" ColumnName="SubCategoryID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ProductsStock" ColumnName="ProductsStock" />
+                <ScalarProperty Name="ProductsImage" ColumnName="ProductsImage" />
+                <ScalarProperty Name="ProductsWeight" ColumnName="ProductsWeight" />
+                <ScalarProperty Name="ProductsPrice" ColumnName="ProductsPrice" />
+                <ScalarProperty Name="ProducsName" ColumnName="ProducsName" />
+                <ScalarProperty Name="ProductsID" ColumnName="ProductsID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

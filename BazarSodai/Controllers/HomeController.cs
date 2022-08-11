@@ -64,8 +64,8 @@ namespace BazarSodai.Controllers
         {
             return View();
         }
-        [HttpPost]
 
+        [HttpPost]
         public ActionResult CreateAccount([Bind(Include = "UsersEmail, UsersPhone, UsersPassword")] User newUser)
         {
             if (ModelState.IsValid)
@@ -76,6 +76,12 @@ namespace BazarSodai.Controllers
                 return View();
             }
             return View();
+        }
+
+        public ActionResult Category()
+        {
+            List<Product> products = db.Products.ToList();
+            return View(products);
         }
     }
 }
