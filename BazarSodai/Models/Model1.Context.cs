@@ -26,5 +26,7 @@ namespace BazarSodai.Models
         }
     
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<SubCategory> SubCategories { get; set; }
     }
 }

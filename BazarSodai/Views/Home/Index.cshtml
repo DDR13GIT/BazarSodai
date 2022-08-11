@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<BazarSodai.Models.Category>  
+@{
     ViewBag.Title = "Home Page";
     Layout = null;
 }
@@ -26,16 +27,7 @@
 </head>
 <body class="biolife-body">
 
-    <!-- Preloader -->
-    <div id="biof-loading">
-        <div class="biof-loading-center">
-            <div class="biof-loading-center-absolute">
-                <div class="dot dot-one"></div>
-                <div class="dot dot-two"></div>
-                <div class="dot dot-three"></div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- HEADER -->
     <header id="header" class="header-area style-01 layout-04">
@@ -516,7 +508,7 @@
                                 </div>
                                 <div class="wrap-menu">
                                     <ul class="menu clone-main-menu">
-                                       
+
                                         <li class="menu-item menu-item-has-children has-megamenu">
                                             <a href="#" class="menu-name" data-title="Fresh Berries"><i class="biolife-icon icon-grape"></i>Fresh Berries</a>
                                             <div class="wrap-megamenu lg-width-900 md-width-640 background-mega-02">
@@ -565,7 +557,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                             <li class="menu-item menu-item-has-children has-child">
+                                        <li class="menu-item menu-item-has-children has-child">
                                             <a href="#" class="menu-name" data-title="Butter & Eggs"><i class="biolife-icon icon-honey"></i>Butter & Eggs</a>
                                             <ul class="sub-menu">
                                                 <li class="menu-item"><a href="#">Omelettes</a></li>
@@ -598,12 +590,10 @@
                                                 <li class="menu-item"><a href="#">Seasonal Fruit Plate</a></li>
                                             </ul>
                                         </li>
-                                        <li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-fast-food"></i>Fastfood</a></li>
-                                        <li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-beef"></i>Fresh Meat</a></li>
-                                        <li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-onions"></i>Fresh Onion</a></li>
-                                        <li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-avocado"></i>Papaya & Crisps</a></li>
-                                        <li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-contain"></i>Oatmeal</a></li>
-                                        <li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-fresh-juice"></i>Fresh Bananas & Plantains</a></li>
+                                        @foreach (var categories in Model)
+                                        {
+                                            <li class="menu-item"><a href="#" class="menu-title"><i class="@categories.CategoryThumb"></i>@categories.CategoryName</a></li>
+                                        }
                                     </ul>
                                 </div>
                             </div>
