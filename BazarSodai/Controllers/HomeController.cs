@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -30,9 +31,12 @@ namespace BazarSodai.Controllers
         {
             return View();
         }
-        public ActionResult Cart()
+        public ActionResult Cart(int? id)
         {
-            return View();
+            var sqlquery = "select * from products where ProductsID="+ id;
+            List<Product> products = db.Products.SqlQuery(sqlquery).ToList();
+            return View(products);
+
         }
 
 
@@ -83,5 +87,26 @@ namespace BazarSodai.Controllers
             List<Product> products = db.Products.ToList();
             return View(products);
         }
+
+        public ActionResult ProductDetails(int? id)
+        {
+            dynamic newModel = new ExpandoObject();
+            var sqlquery = "select * from products where ProductsID="+id;
+            newModel.specificProduct = db.Products.SqlQuery(sqlquery).ToList();
+
+            var sqlquery1 = "select * from products";
+            newModel.allProducts = db.Products.SqlQuery(sqlquery1).ToList();
+
+            return View(newModel);
+            
+        }
+        //public ActionResult ProductDetails()
+        //{
+
+            
+        //    List<Product> productsAll = 
+        //    return View(productsAll);
+
+        //}
     }
 }
