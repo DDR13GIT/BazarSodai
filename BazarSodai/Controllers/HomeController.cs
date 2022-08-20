@@ -14,8 +14,12 @@ namespace BazarSodai.Controllers
 
         public ActionResult Index()
         {
-            List<Category> categories = db.Categories.ToList();
-            return View(categories);
+            dynamic newModel = new ExpandoObject();
+            
+            newModel.subcategories = db.SubCategories.ToList();
+
+            newModel.categories = db.Categories.ToList();
+            return View(newModel);
         }
 
 
@@ -82,10 +86,24 @@ namespace BazarSodai.Controllers
             return View();
         }
 
-        public ActionResult Category()
+        public ActionResult Products(int? id)
         {
-            List<Product> products = db.Products.ToList();
-            return View(products);
+            dynamic newModel = new ExpandoObject();
+            var sqlquery = "select * from products where SubCategoryID=" + id;
+            newModel.catgegoryWiseProduct = db.Products.SqlQuery(sqlquery).ToList();
+
+            
+          
+            return View(newModel);
+        }
+       
+        public ActionResult Subcategory(int? id)
+        {
+            dynamic newModel = new ExpandoObject();
+            var sqlquery = "select * from SubCategory where CategoryID=" + id;
+            newModel.subcategoryResult = db.SubCategories.SqlQuery(sqlquery).ToList();
+
+            return View(newModel);
         }
 
         public ActionResult ProductDetails(int? id)

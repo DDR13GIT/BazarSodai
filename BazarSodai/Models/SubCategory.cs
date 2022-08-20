@@ -14,10 +14,19 @@ namespace BazarSodai.Models
     
     public partial class SubCategory
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SubCategory()
+        {
+            this.Products = new HashSet<Product>();
+        }
+    
         public int SubCategoryID { get; set; }
         public string SubCategoryName { get; set; }
         public Nullable<int> CategoryID { get; set; }
+        public string SubCategoryImage { get; set; }
     
         public virtual Category Category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
