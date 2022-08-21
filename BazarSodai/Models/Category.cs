@@ -11,6 +11,7 @@ namespace BazarSodai.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.Web;
     
     public partial class Category
     {
@@ -20,7 +21,7 @@ namespace BazarSodai.Models
             this.Products = new HashSet<Product>();
             this.SubCategories = new HashSet<SubCategory>();
         }
-    
+         public HttpPostedFileBase Thumb { get; set; }
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
         public string CategoryThumb { get; set; }
