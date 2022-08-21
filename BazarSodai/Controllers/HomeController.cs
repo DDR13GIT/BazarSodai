@@ -58,14 +58,13 @@ namespace BazarSodai.Controllers
         }
         public ActionResult AddProduct()
         {
+            dynamic newModel = new ExpandoObject();
+            var sqlquery = "select * from category";
+            newModel.catlist = db.Categories.SqlQuery(sqlquery).ToList();
+            var sqlquery1 = "select * from SubCategory";
+            newModel.Subcatlist = db.SubCategories.SqlQuery(sqlquery1).ToList();
+            return View(newModel);
 
-            
-         
-           List<Category> list = db.Categories.ToList();
-            ViewBag.catlist =new SelectList(list,"CategoryID","CategoryName");
-
-            return View(ViewBag);
-           
         }
         public ActionResult ViewCategory()
         {
