@@ -66,6 +66,31 @@ namespace BazarSodai.Controllers
             return View(newModel);
 
         }
+
+        [HttpPost]
+        public ActionResult AddProduct(Product newpr)
+        {
+            if (ModelState.IsValid)
+            {
+                Product prt = new Product();
+
+                prt.ProducsName = newpr.ProducsName;
+                prt.ProductsPrice = newpr.ProductsPrice;
+                prt.ProductsStock = newpr.ProductsStock;
+                prt.ProductsImage = newpr.ProductsImage.ToString();
+                prt.SubCategoryID = newpr.SubCategoryID;
+                prt.CategoryID = newpr.CategoryID;
+                prt.ProductsWeight = newpr.ProductsWeight;
+
+
+                db.Products.Add(prt);
+                db.SaveChanges();
+                return View();
+            }
+
+            return View();
+        }
+
         public ActionResult ViewCategory()
         {
 
@@ -110,13 +135,45 @@ namespace BazarSodai.Controllers
                 return View();
             }
                
-            
+          
            
 
         
             return View();
     }
 
+        public ActionResult AddSubCategory()
+        {
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddSubCategory(SubCategory newsubcat )
+        {
+            if (ModelState.IsValid)
+            {
+                SubCategory sc = new SubCategory();
+
+
+                sc.SubCategoryName = newsubcat.SubCategoryName;
+                sc.SubCategoryImage = newsubcat.SubCategoryImage;
+                sc.CategoryID = newsubcat.CategoryID;
+
+                db.SubCategories.Add(sc);
+                db.SaveChanges();
+                return View();
+            }
+
+            return View();
+        }
+        public ActionResult ViewSubCategory()
+        {
+
+
+            return View();
+        }
 
 
         [HttpPost]
