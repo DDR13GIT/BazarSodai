@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,8 +15,12 @@ namespace BazarSodai.Controllers
 
         public ActionResult Index()
         {
-            List<Category> categories = db.Categories.ToList();
-            return View(categories);
+            dynamic newModel = new ExpandoObject();
+
+            newModel.subcategories = db.SubCategories.ToList();
+
+            newModel.categories = db.Categories.ToList();
+            return View(newModel);
         }
 
 
@@ -30,9 +36,12 @@ namespace BazarSodai.Controllers
         {
             return View();
         }
-        public ActionResult Cart()
+        public ActionResult Cart(int? id)
         {
-            return View();
+            var sqlquery = "select * from products where ProductsID=" + id;
+            List<Product> products = db.Products.SqlQuery(sqlquery).ToList();
+            return View(products);
+
         }
 
 
@@ -41,6 +50,170 @@ namespace BazarSodai.Controllers
 
             return View();
         }
+
+        public ActionResult Authloginbasic()
+        {
+            return View();
+
+        }
+        public ActionResult AddProduct()
+        {
+            dynamic newModel = new ExpandoObject();
+            var sqlquery = "select * from category";
+            newModel.catlist = db.Categories.SqlQuery(sqlquery).ToList();
+            var sqlquery1 = "select * from SubCategory";
+            newModel.Subcatlist = db.SubCategories.SqlQuery(sqlquery1).ToList();
+            return View(newModel);
+
+        }
+
+        [HttpPost]
+        public ActionResult AddProduct(Product newpr)
+        {
+            if (ModelState.IsValid)
+            {
+                Product prt = new Product();
+
+                prt.ProducsName = newpr.ProducsName;
+                prt.ProductsPrice = newpr.ProductsPrice;
+                prt.ProductsStock = newpr.ProductsStock;
+                prt.ProductsImage = newpr.ProductsImage.ToString();
+                prt.SubCategoryID = newpr.SubCategoryID;
+                prt.CategoryID = newpr.CategoryID;
+                prt.ProductsWeight = newpr.ProductsWeight;
+
+
+                db.Products.Add(prt);
+                db.SaveChanges();
+                return View();
+            }
+
+            return View();
+        }
+
+        public ActionResult ViewCategory()
+        {
+
+            return View();
+
+        }
+        public ActionResult ViewProduct()
+        {
+
+            return View();
+
+        }
+
+        public ActionResult AddCategory()
+        {
+
+            List<Category> list = db.Categories.ToList();
+            ViewBag.catlist =new SelectList(list,"CategoryID","CategoryName");
+
+            return View(ViewBag.catlist);
+        }
+        [HttpPost]
+        public ActionResult AddCategory(Category newcat)
+        {
+            List<Category> list = db.Categories.ToList();
+            ViewBag.catlist = new SelectList(list, "CategoryID", "CategoryName");
+
+            if (ModelState.IsValid)
+            {
+                Category pr = new Category();
+
+
+                pr.CategoryName = newcat.CategoryName;
+                pr.CategoryThumb = newcat.CategoryThumb.ToString();
+               
+                    
+
+                    var folder = Server.MapPath("~/assets/img/");
+
+                db.Categories.Add(pr);
+                db.SaveChanges();
+                return View();
+            }
+               
+          
+           
+
+        
+            return View();
+    }
+
+        public ActionResult AddSubCategory()
+        {
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddSubCategory(SubCategory newsubcat )
+        {
+            if (ModelState.IsValid)
+            {
+                SubCategory sc = new SubCategory();
+
+
+                sc.SubCategoryName = newsubcat.SubCategoryName;
+                sc.SubCategoryImage = newsubcat.SubCategoryImage;
+                sc.CategoryID = newsubcat.CategoryID;
+
+                db.SubCategories.Add(sc);
+                db.SaveChanges();
+                return View();
+            }
+
+            return View();
+        }
+        public ActionResult ViewSubCategory()
+        {
+
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Authloginbasic([Bind(Include = "UsersEmail, UsersPassword")] User newUser)
+        {
+            List<User> userAccounts = db.Users.Where(temp => temp.UsersEmail == newUser.UsersEmail &&
+            temp.UsersPassword == newUser.UsersPassword).ToList();
+            while (userAccounts.Count > 0)
+            {
+
+                return RedirectToAction("Index", "Users");
+
+                // Response.Redirect("https://localhost:44375/Home/AddProduct");
+
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Authregisterbasic()
+        {
+
+            return View();
+
+        }
+        [HttpPost]
+        public ActionResult Authregisterbasic([Bind(Include = "UsersEmail, UsersPhone, UsersPassword")] User newUser)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Users.Add(newUser);
+                db.SaveChanges();
+                Response.Redirect("https://localhost:44375/Home/Authloginbasic");
+                return View();
+            }
+            return View();
+        }
+
+
 
         [HttpPost]
         public ActionResult Login([Bind(Include = "UsersEmail, UsersPassword")] User newUser)
@@ -78,10 +251,45 @@ namespace BazarSodai.Controllers
             return View();
         }
 
-        public ActionResult Category()
+        public ActionResult Products(int? id)
         {
-            List<Product> products = db.Products.ToList();
-            return View(products);
+            dynamic newModel = new ExpandoObject();
+            var sqlquery = "select * from products where SubCategoryID=" + id;
+            newModel.catgegoryWiseProduct = db.Products.SqlQuery(sqlquery).ToList();
+
+            
+          
+            return View(newModel);
         }
+       
+        public ActionResult Subcategory(int? id)
+        {
+            dynamic newModel = new ExpandoObject();
+            var sqlquery = "select * from SubCategory where CategoryID=" + id;
+            newModel.subcategoryResult = db.SubCategories.SqlQuery(sqlquery).ToList();
+
+            return View(newModel);
+        }
+
+        public ActionResult ProductDetails(int? id)
+        {
+            dynamic newModel = new ExpandoObject();
+            var sqlquery = "select * from products where ProductsID="+id;
+            newModel.specificProduct = db.Products.SqlQuery(sqlquery).ToList();
+
+            var sqlquery1 = "select * from products";
+            newModel.allProducts = db.Products.SqlQuery(sqlquery1).ToList();
+
+            return View(newModel);
+            
+        }
+        //public ActionResult ProductDetails()
+        //{
+
+            
+        //    List<Product> productsAll = 
+        //    return View(productsAll);
+
+        //}
     }
 }
