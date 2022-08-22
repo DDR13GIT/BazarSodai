@@ -59,9 +59,9 @@ namespace BazarSodai.Controllers
         public ActionResult AddProduct()
         {
             dynamic newModel = new ExpandoObject();
-            var sqlquery = "select * from Categories";
+            var sqlquery = "select * from Category";
             newModel.catlist = db.Categories.SqlQuery(sqlquery).ToList();
-            var sqlquery1 = "select * from SubCategories";
+            var sqlquery1 = "select * from SubCategory";
             newModel.Subcatlist = db.SubCategories.SqlQuery(sqlquery1).ToList();
             return View(newModel);
 
