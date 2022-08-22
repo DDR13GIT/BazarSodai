@@ -59,12 +59,33 @@ namespace BazarSodai.Controllers
         public ActionResult AddProduct()
         {
             dynamic newModel = new ExpandoObject();
-            var sqlquery = "select * from category";
+            var sqlquery = "select * from Category";
             newModel.catlist = db.Categories.SqlQuery(sqlquery).ToList();
             var sqlquery1 = "select * from SubCategory";
             newModel.Subcatlist = db.SubCategories.SqlQuery(sqlquery1).ToList();
             return View(newModel);
 
+        }
+        [HttpGet]
+        public ActionResult ViewProduct()
+        {
+            ProductModel product = new ProductModel();
+            product.Products=new List<Product>();
+            
+            var data=db.Products.ToList();
+            foreach(var item in data)
+            {
+                product.Products.Add(new Product
+                {
+                    ProducsName = item.ProducsName,
+                    ProductsPrice = item.ProductsPrice,
+                    ProductsWeight = item.ProductsWeight,
+                    ProductsImage=item.ProductsImage,
+                    ProductsStock=item.ProductsStock
+
+                });
+            }
+            return View(product);
         }
 
         [HttpPost]
@@ -74,6 +95,7 @@ namespace BazarSodai.Controllers
             {
                 Product prt = new Product();
 
+
                 prt.ProducsName = newpr.ProducsName;
                 prt.ProductsPrice = newpr.ProductsPrice;
                 prt.ProductsStock = newpr.ProductsStock;
@@ -81,6 +103,9 @@ namespace BazarSodai.Controllers
                 prt.SubCategoryID = newpr.SubCategoryID;
                 prt.CategoryID = newpr.CategoryID;
                 prt.ProductsWeight = newpr.ProductsWeight;
+
+
+
 
 
                 db.Products.Add(prt);
@@ -93,16 +118,24 @@ namespace BazarSodai.Controllers
 
         public ActionResult ViewCategory()
         {
+            CategoryModel category = new CategoryModel();
+            category.cats = new List<Category>();
 
-            return View();
+            var data = db.Categories.ToList();
+            foreach (var item in data)
+            {
+                category.cats.Add(new Category
+                {
+                    CategoryID = item.CategoryID,
+                   CategoryName = item.CategoryName,
+                   CategoryThumb=item.CategoryThumb
+
+                });
+            }
+            return View(category);
 
         }
-        public ActionResult ViewProduct()
-        {
-
-            return View();
-
-        }
+        
 
         public ActionResult AddCategory()
         {
