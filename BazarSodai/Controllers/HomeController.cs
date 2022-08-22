@@ -168,13 +168,45 @@ namespace BazarSodai.Controllers
                 return View();
             }
                
-            
+          
            
 
         
             return View();
     }
 
+        public ActionResult AddSubCategory()
+        {
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddSubCategory(SubCategory newsubcat )
+        {
+            if (ModelState.IsValid)
+            {
+                SubCategory sc = new SubCategory();
+
+
+                sc.SubCategoryName = newsubcat.SubCategoryName;
+                sc.SubCategoryImage = newsubcat.SubCategoryImage;
+                sc.CategoryID = newsubcat.CategoryID;
+
+                db.SubCategories.Add(sc);
+                db.SaveChanges();
+                return View();
+            }
+
+            return View();
+        }
+        public ActionResult ViewSubCategory()
+        {
+
+
+            return View();
+        }
 
 
         [HttpPost]
