@@ -13,7 +13,7 @@ namespace BazarSodai.Models
     using System.Collections.Generic;
     public class ProductModel
     {
-        public  List<Product> Products { get; set; }
+        public List<Product> Products { get; set; }
     }
     public partial class Product
     {
@@ -22,7 +22,6 @@ namespace BazarSodai.Models
         {
             this.Carts = new HashSet<Cart>();
         }
-       
     
         public int ProductsID { get; set; }
         public string ProducsName { get; set; }
