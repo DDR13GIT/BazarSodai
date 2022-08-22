@@ -59,25 +59,83 @@ namespace BazarSodai.Controllers
         public ActionResult AddProduct()
         {
             dynamic newModel = new ExpandoObject();
-            var sqlquery = "select * from category";
+            var sqlquery = "select * from Categories";
             newModel.catlist = db.Categories.SqlQuery(sqlquery).ToList();
-            var sqlquery1 = "select * from SubCategory";
+            var sqlquery1 = "select * from SubCategories";
             newModel.Subcatlist = db.SubCategories.SqlQuery(sqlquery1).ToList();
             return View(newModel);
 
         }
-        public ActionResult ViewCategory()
-        {
-
-            return View();
-
-        }
+        [HttpGet]
         public ActionResult ViewProduct()
         {
+            ProductModel product = new ProductModel();
+            product.Products=new List<Product>();
+            
+            var data=db.Products.ToList();
+            foreach(var item in data)
+            {
+                product.Products.Add(new Product
+                {
+                    ProducsName = item.ProducsName,
+                    ProductsPrice = item.ProductsPrice,
+                    ProductsWeight = item.ProductsWeight,
+                    ProductsImage=item.ProductsImage,
+                    ProductsStock=item.ProductsStock
+
+                });
+            }
+            return View(product);
+        }
+
+        [HttpPost]
+        public ActionResult AddProduct(Product newpr)
+        {
+            if (ModelState.IsValid)
+            {
+                Product prt = new Product();
+
+
+                prt.ProducsName = newpr.ProducsName;
+                prt.ProductsPrice = newpr.ProductsPrice;
+                prt.ProductsStock = newpr.ProductsStock;
+                prt.ProductsImage = newpr.ProductsImage.ToString();
+                prt.SubCategoryID = newpr.SubCategoryID;
+                prt.CategoryID = newpr.CategoryID;
+                prt.ProductsWeight = newpr.ProductsWeight;
+
+
+
+
+
+                db.Products.Add(prt);
+                db.SaveChanges();
+                return View();
+            }
 
             return View();
+        }
+
+        public ActionResult ViewCategory()
+        {
+            CategoryModel category = new CategoryModel();
+            category.cats = new List<Category>();
+
+            var data = db.Categories.ToList();
+            foreach (var item in data)
+            {
+                category.cats.Add(new Category
+                {
+                    CategoryID = item.CategoryID,
+                   CategoryName = item.CategoryName,
+                   CategoryThumb=item.CategoryThumb
+
+                });
+            }
+            return View(category);
 
         }
+        
 
         public ActionResult AddCategory()
         {
