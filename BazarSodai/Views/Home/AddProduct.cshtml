@@ -514,7 +514,8 @@
                                                                id="upload"
                                                                class="account-file-input"
                                                                name="ProductsImage"
-                                                               hidden
+                                                               required
+                                                              
                                                                accept="image/png, image/jpeg" />
                                                     </label>
                                                     <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
@@ -537,6 +538,7 @@
                                                                id="firstName"
                                                                name="ProducsName"
                                                                value=""
+                                                               required
                                                                autofocus />
                                                     </div>
 
@@ -547,6 +549,7 @@
                                                                id="price"
                                                                name="ProductsPrice"
                                                                value=""
+                                                               required
                                                                placeholder="" />
                                                     </div>
 
@@ -556,6 +559,7 @@
 
                                                         <input type="text"
                                                                id="weight"
+                                                               required
                                                                name="ProductsWeight"
                                                                class="form-control"
                                                                placeholder="" />
@@ -567,6 +571,7 @@
                                                                type="text"
                                                                id="price"
                                                                name="ProductsStock"
+                                                               required
                                                                value=""
                                                                placeholder="" />
                                                     </div>
@@ -580,7 +585,7 @@
                                                             <option value="">SelectCategory</option>
                                                             @foreach (var category in Model.catlist)
                                                             {
-                                                                <option name="CategoryID" value=@category.CategoryID>@category.CategoryName</option>
+                                                                <option name="CategoryID" required value=@category.CategoryID>@category.CategoryName</option>
                                                             }
                                                         </select>
 
@@ -592,7 +597,7 @@
                                                             <option value="">Select SubCategory</option>
                                                             @foreach (var subcategory in Model.Subcatlist)
                                                             {
-                                                                <option name="SubCategoryID" value=@subcategory.SubCategoryID>@subcategory.SubCategoryName</option>
+                                                                <option name="SubCategoryID"required value=@subcategory.SubCategoryID>@subcategory.SubCategoryName</option>
                                                             }
                                                         </select>
                                                     </div>

@@ -11,7 +11,8 @@ namespace BazarSodai.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,6 +22,7 @@ namespace BazarSodai.Models
         }
     
         public int UsersID { get; set; }
+        [Required]
         public string UsersEmail { get; set; }
         public string UsersPhone { get; set; }
         public string UsersPassword { get; set; }

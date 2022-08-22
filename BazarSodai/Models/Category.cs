@@ -11,6 +11,7 @@ namespace BazarSodai.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     public class CategoryModel
     {
@@ -26,7 +27,10 @@ namespace BazarSodai.Models
         }
     
         public int CategoryID { get; set; }
+      
         public string CategoryName { get; set; }
+   
+
         public string CategoryThumb { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
