@@ -217,12 +217,12 @@ namespace BazarSodai.Controllers
             while (userAccounts.Count > 0)
             {
 
-                return RedirectToAction("Index", "Users");
+                return RedirectToAction("AddCategory", "Home");
 
                 // Response.Redirect("https://localhost:44375/Home/AddProduct");
 
             }
-
+            ViewBag.Message = "Username or password wrong";
             return View();
         }
 
@@ -256,9 +256,9 @@ namespace BazarSodai.Controllers
             while (userAccounts.Count > 0)
             {
 
-                return RedirectToAction("Index", "Users");
+                return RedirectToAction("Index", "Home");
 
-                // Response.Redirect("https://localhost:44375/LogInTable/Index");
+                // Response.Redirect("https://localhost:44375/Home/Index");
 
             }
 
@@ -278,7 +278,7 @@ namespace BazarSodai.Controllers
             {
                 db.Users.Add(newUser);
                 db.SaveChanges();
-                Response.Redirect("https://localhost:44375/LogInTable/Login");
+                Response.Redirect("https://localhost:44375/Home/Login");
                 return View();
             }
             return View();
