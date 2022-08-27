@@ -16,7 +16,7 @@
 * Import the ShopDatabse.bacpac file in Microsoft Sql Server Management Studio
   Right click on Database Folder -> Tasks -> Import Data-tier Application -> Select the ShopDatabase.bacpac file
 
-## Overview 
+## Overview 
   
 - `Content/*` - It contains all css files for both user and admin interface.
 - `Script/*` - It has all Js files which are required to run the cshtml files. 
