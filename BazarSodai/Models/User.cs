@@ -11,7 +11,9 @@ namespace BazarSodai.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,12 +21,33 @@ namespace BazarSodai.Models
         {
             this.Carts = new HashSet<Cart>();
         }
-    
+        [Required]
         public int UsersID { get; set; }
+
+
+
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Enter Email Address")]
+        [RegularExpression(".+\\@.+\\..+", ErrorMessage = "Please enter a valid Email")]
+        [Required(ErrorMessage = "Email Can not be empty")]
         public string UsersEmail { get; set; }
+
+
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Enter Phone Number")]
+        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Invalid Phone Number.")]
+        [StringLength(11, ErrorMessage = "Phone number exceeds 11 digit")]
+        [Required(ErrorMessage = "Phone Number Can not be empty")]
         public string UsersPhone { get; set; }
+
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        [Required(ErrorMessage = "Password Can not be empty")]
         public string UsersPassword { get; set; }
-    
+
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
     }

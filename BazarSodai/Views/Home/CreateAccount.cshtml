@@ -1,7 +1,7 @@
 ﻿@{
     Layout = null;
 }
-
+@model BazarSodai.Models.User
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -144,7 +144,7 @@
                                 </li>
 
 
-                                <li class="menu-item"><a href="~/LogInTable/Contact">Contact</a></li>
+                                <li class="menu-item"><a href="~/Home/Contact">Contact</a></li>
                             </ul>
                         </div>
                     </div>
@@ -183,6 +183,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
     </header>
     <!--Hero Section-->
     <div class="hero-section hero-background">
@@ -206,25 +208,38 @@
             <div class="container">
 
                 <div class="row">
-
+                    @Html.AntiForgeryToken();
                     <!--Form Sign In-->
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="signin-container">
-                            <form action="~/Home/CreateAccount" name="frm-login" method="post">
+                            <form action="~/Home/CreateAccount" method="post">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <p class="form-row">
-                                    <label for="fid-name">Email Address:<span class="requite">*</span></label>
-                                    <input type="email" id="fid-name" name="UsersEmail" value="" class="txt-input">
+                                    <label for="fid-name">Email Address:<span class="requite requite">*</span></label>
+                                    @Html.EditorFor(model => model.UsersEmail, new
+                                    {
+                                        htmlAttrubutes = new { @class = "text-danger" }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.UsersEmail, "", new { @class = "text-danger" })
                                 </p>
                                 <p class="form-row">
                                     <label for="fid-name">Phone Number:<span class="requite">*</span></label>
-                                    <input type="text" id="fid-name" name="UsersPhone" value="" class="txt-input">
+                                    @Html.EditorFor(model => model.UsersPhone, new
+                                    {
+                                        htmlAttrubutes = new { @class = "text-danger" }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.UsersPhone, "", new { @class = "text-danger" })
                                 </p>
                                 <p class="form-row">
                                     <label for="fid-pass">Password:<span class="requite">*</span></label>
-                                    <input type="password" id="fid-pass" name="UsersPassword" value="" class="txt-input">
+                                    @Html.EditorFor(model => model.UsersPassword, new
+                                    {
+                                        htmlAttrubutes = new { @class = "text-danger" }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.UsersPassword, "", new { @class = "text-danger" })
                                 </p>
                                 <p class="form-row wrap-btn">
-                                    <button class="btn btn-submit btn-bold" type="submit">Create Account</button>
+                                    <button class="btn btn-submit btn-bold">Create Account</button>
 
                                 </p>
                             </form>
