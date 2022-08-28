@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BazarSodai.Models;
+using System.Web.Security;
 
 namespace BazarSodai.Controllers
 {
@@ -13,6 +14,8 @@ namespace BazarSodai.Controllers
     {
         ShopDatabaseEntities db = new ShopDatabaseEntities();
 
+
+        //******************************************  User part  *********************************************
         public ActionResult Index()
         {
             dynamic newModel = new ExpandoObject();
@@ -32,6 +35,8 @@ namespace BazarSodai.Controllers
         {
             return View();
         }
+
+        [Authorize]
         public ActionResult Checkout()
         {
             return View();
@@ -51,6 +56,110 @@ namespace BazarSodai.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Login([Bind(Include = "UsersEmail, UsersPassword")] User newUser)
+        {
+            List<User> userAccounts = db.Users.Where(temp => temp.UsersEmail == newUser.UsersEmail &&
+            temp.UsersPassword == newUser.UsersPassword).ToList();
+            while (userAccounts.Count > 0)
+            {
+                FormsAuthentication.SetAuthCookie(newUser.UsersEmail,false);
+                
+                return RedirectToAction("Index", "Home");
+
+            }
+
+            return View();
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult CreateAccount()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateAccount([Bind(Include = "UsersEmail, UsersPhone, UsersPassword")] User newUser)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Users.Add(newUser);
+                db.SaveChanges();
+                Response.Redirect("https://localhost:44375/Home/Login");
+                return View();
+            }
+            return View();
+        }
+
+        public ActionResult Products(int? id)
+        {
+            dynamic newModel = new ExpandoObject();
+            var sqlquery = "select * from products where SubCategoryID=" + id;
+            newModel.catgegoryWiseProduct = db.Products.SqlQuery(sqlquery).ToList();
+
+
+
+            return View(newModel);
+        }
+
+       
+        public ActionResult Subcategory(int? id)
+        {
+            dynamic newModel = new ExpandoObject();
+            var sqlquery = "select * from SubCategory where CategoryID=" + id;
+            newModel.subcategoryResult = db.SubCategories.SqlQuery(sqlquery).ToList();
+
+            return View(newModel);
+        }
+
+        public ActionResult ProductDetails(int? id)
+        {
+            dynamic newModel = new ExpandoObject();
+            var sqlquery = "select * from products where ProductsID=" + id;
+            newModel.specificProduct = db.Products.SqlQuery(sqlquery).ToList();
+
+            var sqlquery1 = "select * from products";
+            newModel.allProducts = db.Products.SqlQuery(sqlquery1).ToList();
+
+            return View(newModel);
+
+        }
+
+        [HttpPost]
+        public ActionResult ProductDetails(Cart newcart)
+        {
+            List<Cart> list = db.Carts.ToList();
+            ViewBag.catlist = new SelectList(list, "CartID", "UserEmail");
+
+            if (ModelState.IsValid)
+            {
+                Cart cart = new Cart();
+
+                //cart.ProductsID = newcart.ProductsID;
+                //cart.ProductName = newcart.ProductName;
+                //cart.ProductsPrice = newcart.ProductsPrice;
+                //cart.ProductsImage = newcart.ProductsImage;
+                cart.Quantity = newcart.Quantity;
+                cart.UsersEmail = User.Identity.Name;
+
+                db.Carts.Add(cart);
+                db.SaveChanges();
+                return View();
+            }
+
+
+            return View();
+        }
+
+
+
+        //******************************************  Admin part  *********************************************
         public ActionResult Authloginbasic()
         {
             return View();
@@ -145,6 +254,7 @@ namespace BazarSodai.Controllers
 
             return View(ViewBag.catlist);
         }
+
         [HttpPost]
         public ActionResult AddCategory(Category newcat)
         {
@@ -169,15 +279,11 @@ namespace BazarSodai.Controllers
             }
                
           
-           
-
-        
             return View();
     }
 
         public ActionResult AddSubCategory()
         {
-
 
             return View();
         }
@@ -246,83 +352,5 @@ namespace BazarSodai.Controllers
             return View();
         }
 
-
-
-        [HttpPost]
-        public ActionResult Login([Bind(Include = "UsersEmail, UsersPassword")] User newUser)
-        {
-            List<User> userAccounts = db.Users.Where(temp => temp.UsersEmail == newUser.UsersEmail &&
-            temp.UsersPassword == newUser.UsersPassword).ToList();
-            while (userAccounts.Count > 0)
-            {
-
-                return RedirectToAction("Index", "Home");
-
-                // Response.Redirect("https://localhost:44375/Home/Index");
-
-            }
-
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult CreateAccount()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult CreateAccount([Bind(Include = "UsersEmail, UsersPhone, UsersPassword")] User newUser)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(newUser);
-                db.SaveChanges();
-                Response.Redirect("https://localhost:44375/Home/Login");
-                return View();
-            }
-            return View();
-        }
-
-        public ActionResult Products(int? id)
-        {
-            dynamic newModel = new ExpandoObject();
-            var sqlquery = "select * from products where SubCategoryID=" + id;
-            newModel.catgegoryWiseProduct = db.Products.SqlQuery(sqlquery).ToList();
-
-            
-          
-            return View(newModel);
-        }
-       
-        public ActionResult Subcategory(int? id)
-        {
-            dynamic newModel = new ExpandoObject();
-            var sqlquery = "select * from SubCategory where CategoryID=" + id;
-            newModel.subcategoryResult = db.SubCategories.SqlQuery(sqlquery).ToList();
-
-            return View(newModel);
-        }
-
-        public ActionResult ProductDetails(int? id)
-        {
-            dynamic newModel = new ExpandoObject();
-            var sqlquery = "select * from products where ProductsID="+id;
-            newModel.specificProduct = db.Products.SqlQuery(sqlquery).ToList();
-
-            var sqlquery1 = "select * from products";
-            newModel.allProducts = db.Products.SqlQuery(sqlquery1).ToList();
-
-            return View(newModel);
-            
-        }
-        //public ActionResult ProductDetails()
-        //{
-
-            
-        //    List<Product> productsAll = 
-        //    return View(productsAll);
-
-        //}
     }
 }
