@@ -11,7 +11,10 @@ namespace BazarSodai.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    public class SubCategoryModel
+    {
+        public List<SubCategory> scats { get; set; }
+    }
     public partial class SubCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

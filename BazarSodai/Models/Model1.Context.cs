@@ -26,6 +26,7 @@ namespace BazarSodai.Models
         }
     
         public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<Cart1> Carts1 { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<SubCategory> SubCategories { get; set; }

@@ -11,20 +11,16 @@ namespace BazarSodai.Models
 {
     using System;
     using System.Collections.Generic;
-    public class CartModel
-    {
-        public List<Cart> Carts { get; set; }
-    }
-    public partial class Cart
+    
+    public partial class Cart1
     {
         public int CartID { get; set; }
-        public string UsersEmail { get; set; }
+        public Nullable<int> UsersID { get; set; }
         public Nullable<int> ProductsID { get; set; }
         public Nullable<int> Quantity { get; set; }
-        public Nullable<int> ProductsPrice { get; set; }
-        public string ProductName { get; set; }
-        public string ProductsImage { get; set; }
+        public Nullable<int> CreatedDate { get; set; }
     
         public virtual Product Product { get; set; }
+        public virtual User User { get; set; }
     }
 }

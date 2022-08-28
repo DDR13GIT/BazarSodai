@@ -17,7 +17,7 @@ namespace BazarSodai.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            this.Carts = new HashSet<Cart>();
+            this.Carts = new HashSet<Cart1>();
         }
     
         public int UsersID { get; set; }
@@ -26,6 +26,6 @@ namespace BazarSodai.Models
         public string UsersPassword { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cart> Carts { get; set; }
+        public virtual ICollection<Cart1> Carts { get; set; }
     }
 }

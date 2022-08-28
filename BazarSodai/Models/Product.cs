@@ -21,6 +21,7 @@ namespace BazarSodai.Models
         public Product()
         {
             this.Carts = new HashSet<Cart>();
+            this.Carts1 = new HashSet<Cart1>();
         }
     
         public int ProductsID { get; set; }
@@ -34,6 +35,8 @@ namespace BazarSodai.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart1> Carts1 { get; set; }
         public virtual Category Category { get; set; }
         public virtual SubCategory SubCategory { get; set; }
     }

@@ -139,6 +139,9 @@
     <Compile Include="Models\Cart.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cart1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Category.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -413,6 +416,7 @@
     <Content Include="scss\_theme\_theme.scss" />
     <None Include="Views\Home\Authregisterbasic.cshtml" />
     <Content Include="Views\Home\ViewProduct.cshtml" />
+    <Content Include="Views\Home\remove.cshtml" />
     <None Include="Views\Home\ViewCategory.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

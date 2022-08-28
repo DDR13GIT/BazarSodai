@@ -204,10 +204,49 @@ namespace BazarSodai.Controllers
         public ActionResult ViewSubCategory()
         {
 
+            SubCategoryModel scategory = new SubCategoryModel();
+            scategory.scats = new List<SubCategory>();
 
-            return View();
+            var data = db.SubCategories.ToList();
+            foreach (var item in data)
+            {
+                scategory.scats.Add(new SubCategory
+                {
+                    CategoryID = item.CategoryID,
+                    SubCategoryID = item.SubCategoryID,
+                    SubCategoryName = item.SubCategoryName,
+                    SubCategoryImage = item.SubCategoryImage,
+                    
+
+                });
+            }
+            return View(scategory);
+
+        
         }
 
+     /*   public ActionResult remove(int id)
+        {
+            using (ShopDatabaseEntities db = new ShopDatabaseEntities())
+            {
+                return View();
+               
+            }
+   
+        }
+        [HttpPost,ActionName("remove")]
+        public ActionResult remove(int id, FormCollection collection)
+        {
+            using (ShopDatabaseEntities db = new ShopDatabaseEntities())
+            { 
+         Product pr1 = db.Products.Find(id);
+            db.Products.Remove(pr1);
+            db.SaveChanges();
+        }
+            return RedirectToAction("AddCategory", "Home");
+        }
+
+        */ 
 
         [HttpPost]
         public ActionResult Authloginbasic([Bind(Include = "UsersEmail, UsersPassword")] User newUser)
@@ -316,13 +355,24 @@ namespace BazarSodai.Controllers
             return View(newModel);
             
         }
-        //public ActionResult ProductDetails()
-        //{
+        [HttpPost]
+        public ActionResult ProductDetails(Cart newcart)
+        {
+            if (ModelState.IsValid)
+            {
+               Cart ct = new Cart();
 
-            
-        //    List<Product> productsAll = 
-        //    return View(productsAll);
 
-        //}
+                
+                db.Carts.Add(ct);
+                db.SaveChanges();
+                return View();
+            }
+            return View();
+
+            //    List<Product> productsAll = 
+            //    return View(productsAll);
+
+        }
     }
 }
