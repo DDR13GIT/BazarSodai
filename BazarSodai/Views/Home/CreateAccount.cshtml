@@ -208,40 +208,46 @@
             <div class="container">
 
                 <div class="row">
-                    @Html.AntiForgeryToken();
+                 
                     <!--Form Sign In-->
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="signin-container">
                             <form action="~/Home/CreateAccount" method="post">
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                <p class="form-row">
-                                    <label for="fid-name">Email Address:<span class="requite requite">*</span></label>
-                                    @Html.EditorFor(model => model.UsersEmail, new
-                                    {
-                                        htmlAttrubutes = new { @class = "text-danger" }
-                                    })
-                                    @Html.ValidationMessageFor(model => model.UsersEmail, "", new { @class = "text-danger" })
-                                </p>
-                                <p class="form-row">
-                                    <label for="fid-name">Phone Number:<span class="requite">*</span></label>
-                                    @Html.EditorFor(model => model.UsersPhone, new
-                                    {
-                                        htmlAttrubutes = new { @class = "text-danger" }
-                                    })
-                                    @Html.ValidationMessageFor(model => model.UsersPhone, "", new { @class = "text-danger" })
-                                </p>
-                                <p class="form-row">
-                                    <label for="fid-pass">Password:<span class="requite">*</span></label>
-                                    @Html.EditorFor(model => model.UsersPassword, new
-                                    {
-                                        htmlAttrubutes = new { @class = "text-danger" }
-                                    })
-                                    @Html.ValidationMessageFor(model => model.UsersPassword, "", new { @class = "text-danger" })
-                                </p>
-                                <p class="form-row wrap-btn">
-                                    <button class="btn btn-submit btn-bold">Create Account</button>
 
-                                </p>
+                                <div>
+                                    @Html.LabelFor(model => model.UsersEmail, htmlAttributes: new { @class = "labelFor" })
+                                </div>
+                                <div>
+                                    @Html.EditorFor(model => model.UsersEmail, new { htmlAttributes = new { @class = "input" } })
+                                    @Html.ValidationMessageFor(model => model.UsersEmail, "", new { @class = "text-danger" })
+                                    <!-- <input type="text" name="Email" placeholder="Email" class="input">-->
+
+                                </div>
+
+                                <div>
+                                    @Html.LabelFor(model => model.UsersPhone, htmlAttributes: new { @class = "labelFor" })
+                                </div>
+                                <div>
+                                    @Html.EditorFor(model => model.UsersPhone, new { htmlAttributes = new { @class = "input" } })
+                                    @Html.ValidationMessageFor(model => model.UsersPhone, "", new { @class = "text-danger" })
+
+
+                                    </div>
+
+                                    <div>
+                                        @Html.LabelFor(model => model.UsersPassword, htmlAttributes: new { @class = "labelFor" })
+                                    </div>
+                                    <div>
+                                        @Html.EditorFor(model => model.UsersPassword, new { htmlAttributes = new { @class = "input" } })
+                                        @Html.ValidationMessageFor(model => model.UsersPassword, "", new { @class = "text-danger" })
+                                       
+                                    </div>
+                                    
+
+                                    <p class="form-row wrap-btn">
+                                        <button class="btn btn-submit btn-bold">Create Account</button>
+
+                                    </p>
                             </form>
                         </div>
                     </div>

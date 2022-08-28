@@ -224,27 +224,33 @@
 
 
                         @Html.AntiForgeryToken();
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <!--Form Sign In-->
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <div class="signin-container">
                                 <form action="~/Home/Login" name="frm-login" method="post">
-                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                    <p class="form-row">
-                                        <label for="fid-name">Email Address:<span class="requite">*</span></label>
-                                        @Html.EditorFor(model => model.UsersEmail, new
-                                   {
-                                       htmlAttrubutes = new { @class = "text-danger" }
-                                   })
+
+                                    <div>
+                                        @Html.LabelFor(model => model.UsersEmail, htmlAttributes: new { @class = "labelFor" })
+                                    </div>
+                                    <div>
+                                        @Html.EditorFor(model => model.UsersEmail, new { htmlAttributes = new { @class = "input" } })
                                         @Html.ValidationMessageFor(model => model.UsersEmail, "", new { @class = "text-danger" })
-                                    </p>
-                                    <p class="form-row">
-                                        <label for="fid-pass">Password:<span class="requite">*</span></label>
-                                        @Html.EditorFor(model => model.UsersPassword, new
-                                   {
-                                       htmlAttrubutes = new { @class = "text-danger" }
-                                   })
+                                        <!-- <input type="text" name="Email" placeholder="Email" class="input">-->
+
+                                    </div>
+
+
+                                    <div>
+                                        @Html.LabelFor(model => model.UsersPassword, htmlAttributes: new { @class = "labelFor" })
+                                    </div>
+                                    <div>
+                                        @Html.EditorFor(model => model.UsersPassword, new { htmlAttributes = new { @class = "input" } })
                                         @Html.ValidationMessageFor(model => model.UsersPassword, "", new { @class = "text-danger" })
-                                    </p>
+                                        <!-- <input type="password" name="Password" placeholder="Password" class="input"> -->
+                                    </div>
+
+                                    <p class="text-danger">@ViewBag.missmatch</p>
                                     <p class="form-row wrap-btn">
                                         <button class="btn btn-submit btn-bold" type="submit">sign in</button>
                                         <a href="#" class="link-to-help">Forgot your password</a>
@@ -271,7 +277,7 @@
                             </div>
                         </div>
                     }
-                    </div>
+                </div>
 
                 </div>
 

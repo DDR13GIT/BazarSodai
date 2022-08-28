@@ -25,25 +25,24 @@ namespace BazarSodai.Models
         public int UsersID { get; set; }
 
 
-
+        [Display(Name = "Email address")]
+        [Required(ErrorMessage = "The email address is required")]
         [DataType(DataType.EmailAddress)]
-        [Display(Name = "Enter Email Address")]
-        [RegularExpression(".+\\@.+\\..+", ErrorMessage = "Please enter a valid Email")]
-        [Required(ErrorMessage = "Email Can not be empty")]
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
         public string UsersEmail { get; set; }
 
 
+        [Required(ErrorMessage = "You must provide a phone number")]
+        [Display(Name = "Phone Number")]
         [DataType(DataType.PhoneNumber)]
-        [Display(Name = "Enter Phone Number")]
-        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Invalid Phone Number.")]
-        [StringLength(11, ErrorMessage = "Phone number exceeds 11 digit")]
-        [Required(ErrorMessage = "Phone Number Can not be empty")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         public string UsersPhone { get; set; }
 
 
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         [Required(ErrorMessage = "Password Can not be empty")]
+        [MinLength(6, ErrorMessage = "Minimum 6 character is required")]
         public string UsersPassword { get; set; }
 
 
