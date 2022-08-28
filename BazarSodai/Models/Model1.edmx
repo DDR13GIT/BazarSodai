@@ -10,10 +10,12 @@
             <PropertyRef Name="CartID" />
           </Key>
           <Property Name="CartID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UsersID" Type="int" />
+          <Property Name="UsersEmail" Type="varchar" MaxLength="1" />
           <Property Name="ProductsID" Type="int" />
           <Property Name="Quantity" Type="int" />
-          <Property Name="CreatedDate" Type="int" />
+          <Property Name="ProductsPrice" Type="int" />
+          <Property Name="ProductName" Type="varchar" MaxLength="1" />
+          <Property Name="ProductsImage" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -102,18 +104,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="UsersID_FK">
-          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
-          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UsersID" />
-            </Principal>
-            <Dependent Role="Cart">
-              <PropertyRef Name="UsersID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="ShopDatabaseModelStoreContainer">
           <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -136,29 +126,16 @@
             <End Role="Products" EntitySet="Products" />
             <End Role="Cart" EntitySet="Cart" />
           </AssociationSet>
-          <AssociationSet Name="UsersID_FK" Association="Self.UsersID_FK">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Cart" EntitySet="Cart" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ShopDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ShopDatabaseEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Carts" EntityType="ShopDatabaseModel.Cart" />
           <EntitySet Name="Categories" EntityType="ShopDatabaseModel.Category" />
           <EntitySet Name="Products" EntityType="ShopDatabaseModel.Product" />
           <EntitySet Name="SubCategories" EntityType="ShopDatabaseModel.SubCategory" />
           <EntitySet Name="Users" EntityType="ShopDatabaseModel.User" />
-          <AssociationSet Name="ProductsID_FK" Association="ShopDatabaseModel.ProductsID_FK">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Cart" EntitySet="Carts" />
-          </AssociationSet>
-          <AssociationSet Name="UsersID_FK" Association="ShopDatabaseModel.UsersID_FK">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Cart" EntitySet="Carts" />
-          </AssociationSet>
           <AssociationSet Name="FK_Products_Category" Association="ShopDatabaseModel.FK_Products_Category">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
@@ -171,19 +148,12 @@
             <End Role="SubCategory" EntitySet="SubCategories" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <EntitySet Name="Carts" EntityType="ShopDatabaseModel.Cart" />
+          <AssociationSet Name="ProductsID_FK" Association="ShopDatabaseModel.ProductsID_FK">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Cart">
-          <Key>
-            <PropertyRef Name="CartID" />
-          </Key>
-          <Property Name="CartID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UsersID" Type="Int32" />
-          <Property Name="ProductsID" Type="Int32" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="CreatedDate" Type="Int32" />
-          <NavigationProperty Name="Product" Relationship="ShopDatabaseModel.ProductsID_FK" FromRole="Cart" ToRole="Product" />
-          <NavigationProperty Name="User" Relationship="ShopDatabaseModel.UsersID_FK" FromRole="Cart" ToRole="User" />
-        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryID" />
@@ -206,9 +176,9 @@
           <Property Name="ProductsStock" Type="Int32" />
           <Property Name="CategoryID" Type="Int32" />
           <Property Name="SubCategoryID" Type="Int32" />
-          <NavigationProperty Name="Carts" Relationship="ShopDatabaseModel.ProductsID_FK" FromRole="Product" ToRole="Cart" />
           <NavigationProperty Name="Category" Relationship="ShopDatabaseModel.FK_Products_Category" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="SubCategory" Relationship="ShopDatabaseModel.FK_SubcategoryID" FromRole="Product" ToRole="SubCategory" />
+          <NavigationProperty Name="Carts" Relationship="ShopDatabaseModel.ProductsID_FK" FromRole="Product" ToRole="Cart" />
         </EntityType>
         <EntityType Name="SubCategory">
           <Key>
@@ -229,32 +199,7 @@
           <Property Name="UsersEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UsersPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UsersPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Carts" Relationship="ShopDatabaseModel.UsersID_FK" FromRole="User" ToRole="Cart" />
         </EntityType>
-        <Association Name="ProductsID_FK">
-          <End Type="ShopDatabaseModel.Product" Role="Product" Multiplicity="0..1" />
-          <End Type="ShopDatabaseModel.Cart" Role="Cart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ProductsID" />
-            </Principal>
-            <Dependent Role="Cart">
-              <PropertyRef Name="ProductsID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="UsersID_FK">
-          <End Type="ShopDatabaseModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="ShopDatabaseModel.Cart" Role="Cart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UsersID" />
-            </Principal>
-            <Dependent Role="Cart">
-              <PropertyRef Name="UsersID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Products_Category">
           <End Type="ShopDatabaseModel.Category" Role="Category" Multiplicity="0..1" />
           <End Type="ShopDatabaseModel.Product" Role="Product" Multiplicity="*" />
@@ -291,23 +236,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="CartID" />
+          </Key>
+          <Property Name="CartID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsersEmail" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ProductsID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="ProductsPrice" Type="Int32" />
+          <Property Name="ProductName" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ProductsImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Product" Relationship="ShopDatabaseModel.ProductsID_FK" FromRole="Cart" ToRole="Product" />
+        </EntityType>
+        <Association Name="ProductsID_FK">
+          <End Type="ShopDatabaseModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="ShopDatabaseModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductsID" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="ProductsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ShopDatabaseModelStoreContainer" CdmEntityContainer="ShopDatabaseEntities">
-          <EntitySetMapping Name="Carts">
-            <EntityTypeMapping TypeName="ShopDatabaseModel.Cart">
-              <MappingFragment StoreEntitySet="Cart">
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="ProductsID" ColumnName="ProductsID" />
-                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
-                <ScalarProperty Name="CartID" ColumnName="CartID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="ShopDatabaseModel.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -348,6 +307,19 @@
                 <ScalarProperty Name="UsersPhone" ColumnName="UsersPhone" />
                 <ScalarProperty Name="UsersEmail" ColumnName="UsersEmail" />
                 <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="ShopDatabaseModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="ProductsImage" ColumnName="ProductsImage" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductsPrice" ColumnName="ProductsPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductsID" ColumnName="ProductsID" />
+                <ScalarProperty Name="UsersEmail" ColumnName="UsersEmail" />
+                <ScalarProperty Name="CartID" ColumnName="CartID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
