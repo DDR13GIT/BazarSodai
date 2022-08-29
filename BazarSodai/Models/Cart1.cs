@@ -12,13 +12,15 @@ namespace BazarSodai.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Cart1
     {
-
-        public int UsersID { get; set; }
-        public string UsersEmail { get; set; }
-        public string UsersPhone { get; set; }
-        public string UsersPassword { get; set; }
-
+        public int CartID { get; set; }
+        public Nullable<int> UsersID { get; set; }
+        public Nullable<int> ProductsID { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public Nullable<int> CreatedDate { get; set; }
+    
+        public virtual Product Product { get; set; }
+        public virtual User User { get; set; }
     }
 }
