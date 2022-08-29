@@ -36,32 +36,84 @@
         </div>
     </div>
     <!-- HEADER -->
-    <header id="header" class="header-area style-01 layout-03">
+    <header id="header" class="header-area style-01 layout-04">
         <div class="header-top bg-main hidden-xs">
             <div class="container">
                 <div class="top-bar left">
-
+                    <ul class="horizontal-menu">
+                        <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>BazarSodai@gmail.com</a></li>
+                        <li><a href="#">Free Shipping for all Order of $99</a></li>
+                    </ul>
                 </div>
                 <div class="top-bar right">
-
+                    <ul class="social-list">
+                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                    </ul>
                     <ul class="horizontal-menu">
 
+                        <li class="horz-menu-item lang">
+                            <select name="language">
+                                <option value="en" selected>English (USD)</option>
+                                <option value="ger">Germany (GBP)</option>
 
-                        <li><a href="Login" class="login-link"><i class="biolife-icon icon-login"></i>Login/Register</a></li>
+                            </select>
+                        </li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="horz-menu-item">
+                                <select name="user-auth" onchange="javascript:handleSelect(this)">
+                                    <option value="~/Home/login" selected>
+                                        @try
+                                        {
+                                            @User.Identity.Name
+                                        }
+                                        catch (Exception error)
+                                        {
+                                            Console.WriteLine("User auth error" + error);
+                                        }
+                                    </option>
+                                    <option value="~/Home/login">Logout</option>
+
+                                </select>
+                                <script type="text/javascript">
+                                    function handleSelect(elm) {
+                                        window.location = elm.value;
+                                    }
+                                </script>
+
+
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="login" class="login-link">
+                                    <i class="biolife-icon icon-login">
+                                    </i>Login/Register
+                                </a>
+                            </li>
+                        }
+
+
                     </ul>
                 </div>
             </div>
         </div>
+
         <div class="header-middle biolife-sticky-object ">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
-                        <a href="Index" class="biolife-logo"><img src="~/images/bazarsodailogo.png" alt="biolife logo" width="135" height="34"></a>
+                        <a href="~/Home/Index"><img src="~/images/bazarsodailogo.png" alt="biolife logo" width="280" height="36"></a>
                     </div>
                     <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
                         <div class="primary-menu">
                             <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
-                                <li class="menu-item"><a href="../Index">Home</a></li>
+                                <li class="menu-item"><a href="~/Home/Index">Home</a></li>
                                 <li class="menu-item menu-item-has-children has-megamenu">
                                     <a href="#" class="menu-name" data-title="Shop">Shop</a>
                                     <div class="wrap-megamenu lg-width-900 md-width-750">
@@ -117,42 +169,10 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="menu-item menu-item-has-children has-child">
-                                    <a href="#" class="menu-name" data-title="Products">Products</a>
-                                    <ul class="sub-menu">
-                                        <li class="menu-item"><a href="#">Omelettes</a></li>
-                                        <li class="menu-item"><a href="#">Breakfast Scrambles</a></li>
-                                        <li class="menu-item menu-item-has-children has-child">
-                                            <a href="#" class="menu-name" data-title="Eggs & other considerations">Eggs & other considerations</a>
-                                            <ul class="sub-menu">
-                                                <li class="menu-item"><a href="#">Classic Breakfast</a></li>
-                                                <li class="menu-item"><a href="#">Huevos Rancheros</a></li>
-                                                <li class="menu-item"><a href="#">Everything Egg Sandwich</a></li>
-                                                <li class="menu-item"><a href="#">Egg Sandwich</a></li>
-                                                <li class="menu-item"><a href="#">Vegan Burrito</a></li>
-                                                <li class="menu-item"><a href="#">Biscuits and Gravy</a></li>
-                                                <li class="menu-item"><a href="#">Bacon Avo Egg Sandwich</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item"><a href="#">Griddle</a></li>
-                                        <li class="menu-item menu-item-has-children has-child">
-                                            <a href="#" class="menu-name" data-title="Sides & Extras">Sides & Extras</a>
-                                            <ul class="sub-menu">
-                                                <li class="menu-item"><a href="#">Breakfast Burrito</a></li>
-                                                <li class="menu-item"><a href="#">Crab Cake Benedict</a></li>
-                                                <li class="menu-item"><a href="#">Corned Beef Hash</a></li>
-                                                <li class="menu-item"><a href="#">Steak & Eggs</a></li>
-                                                <li class="menu-item"><a href="#">Oatmeal</a></li>
-                                                <li class="menu-item"><a href="#">Fruit & Yogurt Parfait</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item"><a href="#">Biscuits</a></li>
-                                        <li class="menu-item"><a href="#">Seasonal Fruit Plate</a></li>
-                                    </ul>
-                                </li>
 
 
-                                <li class="menu-item"><a href="../Contact">Contact</a></li>
+
+                                <li class="menu-item"><a href="~/Home/Contact">Contact</a></li>
                             </ul>
                         </div>
                     </div>
@@ -181,7 +201,7 @@
 
                                             <p class="btn-control">
                                                 <a href="Cart" class="btn view-cart">view cart</a>
-                                                <a href="../Checkout" class="btn">checkout</a>
+                                                <a href="Checkout" class="btn">checkout</a>
                                             </p>
                                         </div>
                                     </div>

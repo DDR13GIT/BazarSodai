@@ -14,18 +14,11 @@ namespace BazarSodai.Models
     
     public partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
-        {
-            this.Carts = new HashSet<Cart1>();
-        }
-    
+
         public int UsersID { get; set; }
         public string UsersEmail { get; set; }
         public string UsersPhone { get; set; }
         public string UsersPassword { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cart1> Carts { get; set; }
+
     }
 }
