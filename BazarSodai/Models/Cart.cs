@@ -11,6 +11,8 @@ namespace BazarSodai.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
     public class CartModel
     {
         public List<Cart> Carts { get; set; }
@@ -18,10 +20,13 @@ namespace BazarSodai.Models
     public partial class Cart
     {
         public int CartID { get; set; }
+       
+        [MaxLength]
         public string UsersEmail { get; set; }
         public Nullable<int> ProductsID { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<int> ProductsPrice { get; set; }
+        [MaxLength]
         public string ProductName { get; set; }
         public string ProductsImage { get; set; }
     

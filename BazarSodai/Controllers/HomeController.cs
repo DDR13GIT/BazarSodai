@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using BazarSodai.Models;
 using System.Web.Security;
+using System.Data.Entity.Validation;
 
 namespace BazarSodai.Controllers
 {
@@ -41,11 +42,11 @@ namespace BazarSodai.Controllers
         {
             return View();
         }
-        public ActionResult Cart(int? id)
+        public ActionResult Cart()
         {
-            var sqlquery = "select * from products where ProductsID=" + id;
-            List<Product> products = db.Products.SqlQuery(sqlquery).ToList();
-            return View(products);
+            var sqlquery = "select * from cart where UsersEmail=" + User.Identity.Name;
+            List<Cart> carts = db.Carts.SqlQuery(sqlquery).ToList();
+            return View(carts);
 
         }
 
@@ -141,19 +142,32 @@ namespace BazarSodai.Controllers
             {
                 Cart cart = new Cart();
 
-                //cart.ProductsID = newcart.ProductsID;
-                //cart.ProductName = newcart.ProductName;
-                //cart.ProductsPrice = newcart.ProductsPrice;
-                //cart.ProductsImage = newcart.ProductsImage;
-                cart.Quantity = newcart.Quantity;
+                cart.ProductsID = Convert.ToInt16(newcart.ProductsID);
+                cart.ProductName = Convert.ToString(newcart.ProductName);
+                cart.ProductsPrice = Convert.ToInt16(newcart.ProductsPrice);
+                cart.ProductsImage = newcart.ProductsImage;
+                cart.Quantity = Convert.ToInt16(newcart.Quantity);
                 cart.UsersEmail = User.Identity.Name;
 
                 db.Carts.Add(cart);
-                db.SaveChanges();
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in entityValidationErrors.ValidationErrors)
+                        {
+                            Response.Write("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
+                        }
+                    }
+                }
+             
                 return View();
             }
-
-
             return View();
         }
 

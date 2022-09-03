@@ -14,11 +14,9 @@ namespace BazarSodai.Models
     
     public partial class User
     {
-
         public int UsersID { get; set; }
         public string UsersEmail { get; set; }
         public string UsersPhone { get; set; }
         public string UsersPassword { get; set; }
-
     }
 }
