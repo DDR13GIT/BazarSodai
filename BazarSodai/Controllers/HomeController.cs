@@ -21,9 +21,10 @@ namespace BazarSodai.Controllers
         {
             dynamic newModel = new ExpandoObject();
 
-            newModel.subcategories = db.SubCategories.ToList();
-
+           
+            
             newModel.categories = db.Categories.ToList();
+             newModel.subcategories = db.SubCategories.ToList();
             return View(newModel);
         }
 
@@ -36,16 +37,49 @@ namespace BazarSodai.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult Checkout(Order ordt)
+        {
+            if (ModelState.IsValid)
+            {
+               Order rt = new Order();
 
+                rt.DeliveryAddress = ordt.DeliveryAddress;
+                rt.TotalPrice = ordt.TotalPrice;
+                rt.UserEmail = User.Identity.Name;
+                DateTime now = DateTime.Now;
+                
+
+
+
+
+
+
+                db.Orders.Add(rt);
+                db.SaveChanges();
+                return View();
+            }
+            return View();
+
+        }
         [Authorize]
         public ActionResult Checkout()
         {
-            return View();
+
+            var sqlquery = "select * from cart where UsersEmail= '" + User.Identity.Name + "'";
+
+            List<Cart> carts = db.Carts.SqlQuery(sqlquery).ToList();
+
+            return View(carts);
+          
         }
         public ActionResult Cart()
         {
-            var sqlquery = "select * from cart where UsersEmail=" + User.Identity.Name;
+            
+              var sqlquery = "select * from cart where UsersEmail= '"+ User.Identity.Name + "'";
+      
             List<Cart> carts = db.Carts.SqlQuery(sqlquery).ToList();
+            
             return View(carts);
 
         }
@@ -345,28 +379,30 @@ namespace BazarSodai.Controllers
         
         }
 
-     /*   public ActionResult remove(int id)
-        {
-            using (ShopDatabaseEntities db = new ShopDatabaseEntities())
-            {
-                return View();
-               
-            }
-   
-        }
-        [HttpPost,ActionName("remove")]
-        public ActionResult remove(int id, FormCollection collection)
-        {
-            using (ShopDatabaseEntities db = new ShopDatabaseEntities())
-            { 
-         Product pr1 = db.Products.Find(id);
-            db.Products.Remove(pr1);
+
+        static int pid;
+        [HttpGet]
+         public ActionResult remove(int id)
+           {
+            pid = id;
+              var obj = db.Products.Find(id);
+            return View(obj);
+
+           }
+           [HttpPost]
+           public ActionResult remove(Product prd)
+           {
+            //  db.Entry(prd).State = System.Data.Entity.EntityState.Deleted;
+            var obj = db.Products.Where(temp => temp.ProductsID == pid).FirstOrDefault();
+           db.Products.Remove(obj);
             db.SaveChanges();
-        }
-            return RedirectToAction("AddCategory", "Home");
+            return RedirectToAction("ViewProduct");
+           
+           
+
         }
 
-        */ 
+           
 
         [HttpPost]
         public ActionResult Authloginbasic([Bind(Include = "UsersEmail, UsersPassword")] User newUser)

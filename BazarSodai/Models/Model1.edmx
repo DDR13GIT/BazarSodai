@@ -4,17 +4,17 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ShopDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ShopDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cart">
           <Key>
             <PropertyRef Name="CartID" />
           </Key>
           <Property Name="CartID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UsersEmail" Type="varchar" MaxLength="1" />
+          <Property Name="UsersEmail" Type="varchar(max)" />
           <Property Name="ProductsID" Type="int" />
           <Property Name="Quantity" Type="int" />
           <Property Name="ProductsPrice" Type="int" />
-          <Property Name="ProductName" Type="varchar" MaxLength="1" />
+          <Property Name="ProductName" Type="varchar(max)" />
           <Property Name="ProductsImage" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Category">
@@ -25,6 +25,27 @@
           <Property Name="CategoryName" Type="varchar" MaxLength="50" />
           <Property Name="CategoryThumb" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserEmail" Type="varchar(max)" />
+          <Property Name="DeliveryAddress" Type="varchar(max)" />
+          <Property Name="TotalPrice" Type="int" />
+          <Property Name="OrderDate" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ShopDatabase.dbo.OrderDetails' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="OrderDetails">
+          <Property Name="OrderID" Type="int" />
+          <Property Name="UsersEmail" Type="varchar(max)" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="ProductdPrice" Type="int" />
+          <Property Name="ProductName" Type="varchar(max)" />
+          <Property Name="ProductsImage" Type="varchar(max)" />
+        </EntityType>-->
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="ProductsID" />
@@ -107,6 +128,7 @@
         <EntityContainer Name="ShopDatabaseModelStoreContainer">
           <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubCategory" EntityType="Self.SubCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -127,23 +149,46 @@
             <End Role="Cart" EntitySet="Cart" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ShopDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ShopDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Carts" EntityType="ShopDatabaseModel.Cart" />
+          <EntitySet Name="Categories" EntityType="ShopDatabaseModel.Category" />
+          <EntitySet Name="Orders" EntityType="ShopDatabaseModel.Order" />
+          <EntitySet Name="Products" EntityType="ShopDatabaseModel.Product" />
+          <EntitySet Name="SubCategories" EntityType="ShopDatabaseModel.SubCategory" />
+          <EntitySet Name="Users" EntityType="ShopDatabaseModel.User" />
+          <AssociationSet Name="ProductsID_FK" Association="ShopDatabaseModel.ProductsID_FK">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Category" Association="ShopDatabaseModel.FK_Products_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubCategory_Category" Association="ShopDatabaseModel.FK_SubCategory_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="SubCategory" EntitySet="SubCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubcategoryID" Association="ShopDatabaseModel.FK_SubcategoryID">
+            <End Role="SubCategory" EntitySet="SubCategories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Cart">
           <Key>
             <PropertyRef Name="CartID" />
           </Key>
           <Property Name="CartID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UsersEmail" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="UsersEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ProductsID" Type="Int32" />
           <Property Name="Quantity" Type="Int32" />
           <Property Name="ProductsPrice" Type="Int32" />
-          <Property Name="ProductName" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ProductsImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Product" Relationship="Self.ProductsID_FK" FromRole="Cart" ToRole="Products" />
+          <NavigationProperty Name="Product" Relationship="ShopDatabaseModel.ProductsID_FK" FromRole="Cart" ToRole="Product" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -152,8 +197,18 @@
           <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CategoryThumb" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Category" FromRole="Category" ToRole="Products" />
-          <NavigationProperty Name="SubCategories" Relationship="Self.FK_SubCategory_Category" FromRole="Category" ToRole="SubCategory" />
+          <NavigationProperty Name="Products" Relationship="ShopDatabaseModel.FK_Products_Category" FromRole="Category" ToRole="Product" />
+          <NavigationProperty Name="SubCategories" Relationship="ShopDatabaseModel.FK_SubCategory_Category" FromRole="Category" ToRole="SubCategory" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TotalPrice" Type="Int32" />
+          <Property Name="OrderDate" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -167,9 +222,9 @@
           <Property Name="ProductsStock" Type="Int32" />
           <Property Name="CategoryID" Type="Int32" />
           <Property Name="SubCategoryID" Type="Int32" />
-          <NavigationProperty Name="Carts" Relationship="Self.ProductsID_FK" FromRole="Products" ToRole="Cart" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_Products_Category" FromRole="Products" ToRole="Category" />
-          <NavigationProperty Name="SubCategory" Relationship="Self.FK_SubcategoryID" FromRole="Products" ToRole="SubCategory" />
+          <NavigationProperty Name="Carts" Relationship="ShopDatabaseModel.ProductsID_FK" FromRole="Product" ToRole="Cart" />
+          <NavigationProperty Name="Category" Relationship="ShopDatabaseModel.FK_Products_Category" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="SubCategory" Relationship="ShopDatabaseModel.FK_SubcategoryID" FromRole="Product" ToRole="SubCategory" />
         </EntityType>
         <EntityType Name="SubCategory">
           <Key>
@@ -179,8 +234,8 @@
           <Property Name="SubCategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CategoryID" Type="Int32" />
           <Property Name="SubCategoryImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_SubCategory_Category" FromRole="SubCategory" ToRole="Category" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_SubcategoryID" FromRole="SubCategory" ToRole="Products" />
+          <NavigationProperty Name="Category" Relationship="ShopDatabaseModel.FK_SubCategory_Category" FromRole="SubCategory" ToRole="Category" />
+          <NavigationProperty Name="Products" Relationship="ShopDatabaseModel.FK_SubcategoryID" FromRole="SubCategory" ToRole="Product" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -192,10 +247,10 @@
           <Property Name="UsersPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="ProductsID_FK">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <End Type="ShopDatabaseModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="ShopDatabaseModel.Cart" Role="Cart" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Products">
+            <Principal Role="Product">
               <PropertyRef Name="ProductsID" />
             </Principal>
             <Dependent Role="Cart">
@@ -204,20 +259,20 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <End Type="ShopDatabaseModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="ShopDatabaseModel.Product" Role="Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
               <PropertyRef Name="CategoryID" />
             </Principal>
-            <Dependent Role="Products">
+            <Dependent Role="Product">
               <PropertyRef Name="CategoryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SubCategory_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="SubCategory" Type="Self.SubCategory" Multiplicity="*" />
+          <End Type="ShopDatabaseModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="ShopDatabaseModel.SubCategory" Role="SubCategory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
               <PropertyRef Name="CategoryID" />
@@ -228,41 +283,18 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SubcategoryID">
-          <End Role="SubCategory" Type="Self.SubCategory" Multiplicity="0..1" />
-          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <End Type="ShopDatabaseModel.SubCategory" Role="SubCategory" Multiplicity="0..1" />
+          <End Type="ShopDatabaseModel.Product" Role="Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SubCategory">
               <PropertyRef Name="SubCategoryID" />
             </Principal>
-            <Dependent Role="Products">
+            <Dependent Role="Product">
               <PropertyRef Name="SubCategoryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ShopDatabaseEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Carts" EntityType="Self.Cart" />
-          <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Products" EntityType="Self.Product" />
-          <EntitySet Name="SubCategories" EntityType="Self.SubCategory" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="ProductsID_FK" Association="Self.ProductsID_FK">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Cart" EntitySet="Carts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Products_Category" Association="Self.FK_Products_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SubCategory_Category" Association="Self.FK_SubCategory_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="SubCategory" EntitySet="SubCategories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SubcategoryID" Association="Self.FK_SubcategoryID">
-            <End Role="SubCategory" EntitySet="SubCategories" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -271,56 +303,67 @@
           <EntitySetMapping Name="Carts">
             <EntityTypeMapping TypeName="ShopDatabaseModel.Cart">
               <MappingFragment StoreEntitySet="Cart">
-                <ScalarProperty Name="CartID" ColumnName="CartID" />
-                <ScalarProperty Name="UsersEmail" ColumnName="UsersEmail" />
-                <ScalarProperty Name="ProductsID" ColumnName="ProductsID" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="ProductsPrice" ColumnName="ProductsPrice" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ProductsImage" ColumnName="ProductsImage" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductsPrice" ColumnName="ProductsPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductsID" ColumnName="ProductsID" />
+                <ScalarProperty Name="UsersEmail" ColumnName="UsersEmail" />
+                <ScalarProperty Name="CartID" ColumnName="CartID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="ShopDatabaseModel.Category">
               <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="CategoryThumb" ColumnName="CategoryThumb" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ShopDatabaseModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="ShopDatabaseModel.Product">
               <MappingFragment StoreEntitySet="Products">
-                <ScalarProperty Name="ProductsID" ColumnName="ProductsID" />
-                <ScalarProperty Name="ProducsName" ColumnName="ProducsName" />
-                <ScalarProperty Name="ProductsPrice" ColumnName="ProductsPrice" />
-                <ScalarProperty Name="ProductsWeight" ColumnName="ProductsWeight" />
-                <ScalarProperty Name="ProductsImage" ColumnName="ProductsImage" />
-                <ScalarProperty Name="ProductsStock" ColumnName="ProductsStock" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="SubCategoryID" ColumnName="SubCategoryID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ProductsStock" ColumnName="ProductsStock" />
+                <ScalarProperty Name="ProductsImage" ColumnName="ProductsImage" />
+                <ScalarProperty Name="ProductsWeight" ColumnName="ProductsWeight" />
+                <ScalarProperty Name="ProductsPrice" ColumnName="ProductsPrice" />
+                <ScalarProperty Name="ProducsName" ColumnName="ProducsName" />
+                <ScalarProperty Name="ProductsID" ColumnName="ProductsID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SubCategories">
             <EntityTypeMapping TypeName="ShopDatabaseModel.SubCategory">
               <MappingFragment StoreEntitySet="SubCategory">
-                <ScalarProperty Name="SubCategoryID" ColumnName="SubCategoryID" />
-                <ScalarProperty Name="SubCategoryName" ColumnName="SubCategoryName" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="SubCategoryImage" ColumnName="SubCategoryImage" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="SubCategoryName" ColumnName="SubCategoryName" />
+                <ScalarProperty Name="SubCategoryID" ColumnName="SubCategoryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ShopDatabaseModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
-                <ScalarProperty Name="UsersEmail" ColumnName="UsersEmail" />
-                <ScalarProperty Name="UsersPhone" ColumnName="UsersPhone" />
                 <ScalarProperty Name="UsersPassword" ColumnName="UsersPassword" />
+                <ScalarProperty Name="UsersPhone" ColumnName="UsersPhone" />
+                <ScalarProperty Name="UsersEmail" ColumnName="UsersEmail" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
