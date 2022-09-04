@@ -37,6 +37,18 @@ namespace BazarSodai.Controllers
         {
             return View();
         }
+      
+        public ActionResult OrderHistory()
+        {
+
+            var sqlquery2 = "Select * from Order  where UserEmail= '" + User.Identity.Name + "'";
+
+            List<Order> orders = db.Orders.SqlQuery(sqlquery2).ToList();
+
+            return View(orders);
+        }
+
+
         [HttpPost]
         public ActionResult Checkout(Order ordt)
         {
@@ -48,17 +60,12 @@ namespace BazarSodai.Controllers
                 rt.TotalPrice = ordt.TotalPrice;
                 rt.UserEmail = User.Identity.Name;
                 DateTime now = DateTime.Now;
-                
-
-
-
-
-
 
                 db.Orders.Add(rt);
                 db.SaveChanges();
                 return View();
             }
+         
             return View();
 
         }

@@ -417,6 +417,7 @@
     <None Include="Views\Home\Authregisterbasic.cshtml" />
     <Content Include="Views\Home\ViewProduct.cshtml" />
     <Content Include="Views\Home\remove.cshtml" />
+    <Content Include="Views\Home\OrderHistory.cshtml" />
     <None Include="Views\Home\ViewCategory.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -1,10 +1,8 @@
-﻿@{
+﻿
+@{
     Layout = null;
-    Int32 totalpr = 0;
-    Int32 totalprd = 0;
-    Int32 sp = 60;
-}
 
+}
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
@@ -38,7 +36,6 @@
             </div>
         </div>
     </div>
-
     <!-- HEADER -->
     <header id="header" class="header-area style-01 layout-04">
         <div class="header-top bg-main hidden-xs">
@@ -101,12 +98,6 @@
                                 </a>
                             </li>
                         }
-
-
-
-
-
-
 
 
                     </ul>
@@ -222,9 +213,10 @@
                     </div>
                 </div>
     </header>
+
     <!--Hero Section-->
     <div class="hero-section hero-background">
-        <h1 class="page-title">Organic Fruits</h1>
+        <h1 class="page-title">Shopping Cart</h1>
     </div>
 
     <!--Navigation section-->
@@ -232,150 +224,102 @@
         <nav class="biolife-nav">
             <ul>
                 <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
-                <li class="nav-item"><span class="current-page">ShoppingCart</span></li>
+                <li class="nav-item"><span class="current-page">Order History</span></li>
             </ul>
         </nav>
     </div>
 
-    <div class="page-contain checkout">
-        <form action="Checkout" name="frm-login" method="post">
-            <!-- Main content -->
-            <div id="main-content" class="main-content">
-                <div class="container sm-margin-top-37px">
-                    <div class="row">
+    <div class="page-contain shopping-cart">
 
-                        <!--checkout progress box-->
-                        <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
-                            <div class="checkout-progress-wrap">
-                                <ul class="steps">
-                                 
-                                    <li class="step 2nd">
-                                        <div class="checkout-act active">
-                                            <h3 class="title-box"><span class="number">2</span>Delivery</h3>
-                                            <div class="box-content">
-                                                <p class="txt-desc">Enter the delivery address where you want to get the produtct. Try to ented with details.</p>
-                                                <div class="login-on-checkout">
-
-                                                    <p class="form-row">
-                                                        <label for="input_delivery">Delivery Address</label>
-                                                        <input type="text" name="DeliveryAddress" id="input_email" value="" placeholder="Address where you want to get the product">
-
-                                                    </p>
+        <!-- Main content -->
+        <div id="main-content" class="main-content">
+            <div class="container">
 
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
 
-                                    <li class="step 3rd">
-                                        <div class="checkout-act active">
-                                            <h3 class="title-box"><span class="number">3</span>Payment</h3>
-                                            <div class="box-content">
-                                                <p class="txt-desc">Get products at your doorsteps using Cash on delivery!.</p>
-                                            </div>
-                                        </div>
+                <!--Cart Table-->
 
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!--Order Summary-->
-                        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 sm-padding-top-48px sm-margin-bottom-0 xs-margin-bottom-15px">
-                            <div class="order-summary sm-margin-bottom-80px">
-                                <div class="title-block">
-                                    <h3 class="title">Order Summary</h3>
-                                    <a href="../Home/Cart" class="link-forward">Edit cart</a>
-                                </div>
-                                <div class="cart-list-box short-type">
+               
+                    <div class="shopping-cart-container">
+                        <div class="row">
+                            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                                <h3 class="box-title">Your ordered items</h3>
+                               
 
 
-                                    <ul class="cart-list">
-                                        @try
-                                        {
-                                             foreach (var carts in Model)
+                                    <table class="shop_table cart-form">
+                                        <thead>
+                                            <tr>
+                                                <th class="product-name">Order ID</th>
+                                                <th class="product-price">Delivery Address</th>
+                                                <th class="product-quantity">Order Date</th>
+                                                <th class="product-subtotal">Total Price</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                            @try
                                             {
-                                                <li class="cart-elem">
-                                                    <div class="cart-item">
-                                                        <div class="product-thumb">
-                                                            <a class="prd-thumb" href="#">
-                                                                <figure><img src="~/images/products/@carts.ProductsImage" width="113" height="113" alt="shop-cart"></figure>
-                                                            </a>
-                                                        </div>
-                                                        <div class="info">
-                                                            <span class="txt-quantity">@carts.Quantity X</span>
-                                                            <a href="#" class="pr-name">@carts.ProductName</a>
-                                                        </div>
-                                                        <div class="price price-contain">
-                                                            <ins><span class="price-amount"><span class="currencySymbol">৳</span>@carts.ProductsPrice</span></ins>
-
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            }
-                                        }
-                                        catch (Exception e)
-                                        {
-                                            Console.WriteLine(e);
-                                        }
-                                        </ul>
-                                  
-                                    <ul class="subtotal">
-                                        <li>
-                                            <div class="subtotal-line">
-
-                                                <b class="stt-name">Subtotal</b>
-                                                @foreach (var carts in Model)
+                                                foreach (var orders in Model)
                                                 {
-                                                    totalpr = totalpr + Convert.ToInt32(carts.ProductsPrice * carts.Quantity);
+                                                    <tr class="cart_item">
+                                                        <td class="product-thumbnail" data-title="Product Name">
+
+                                                            <a class="prd-name" href="#">@orders.OrderID</a>
+
+                                                        </td>
+                                                        <td class="product-price" data-title="Price">
+                                                            <div class="price price-contain">
+                                                                <ins><span class="price-amount"><span class="currencySymbol">৳</span>@orders.DeliveryAddress</span></ins>
+
+                                                            </div>
+                                                        </td>
+                                                        <td class="product-quantity" data-title="Quantity">
+                                                            <div class="quantity-box type1">
+                                                                <div class="qty-input">
+                                                                    <input type="text" name="Quantity" value="@orders.OrderDate " data-max_value="20" data-min_value="1" data-step="1">
+                                                                    <a href="#" class="qty-btn btn-up"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
+                                                                    <a href="#" class="qty-btn btn-down"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="product-subtotal" data-title="Total">
+                                                            <div class="price price-contain">
+
+                                                                <ins><span class="price-amount"><span class="currencySymbol">৳</span>@orders.TotalPrice</span></ins>
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
 
                                                 }
-                                                <span class="stt-price">৳ @totalpr</span>
-
-                                            </div>
-                                        </li>
-                                       <li>
-                                            <div class="subtotal-line">
-                                                <b class="stt-name">Shipping</b>
-                                                <span class="stt-price">৳ 60.00</span>
-                                            </div>
-                                        </li>
+                                            }
+                                            catch (Exception e)
+                                            {
+                                                Console.WriteLine(e);
+                                            }
 
 
-                                        <li>
-                                            <div class="subtotal-line">
-                                                <b class="stt-name">total:</b>
-                                                @{
-                                                    totalprd = Convert.ToInt32(totalpr + sp);
-                                                }
-                                                <span class="stt-price"  > ৳ @totalprd</span>
-                                                <input type="hidden"  name="TotalPrice" value="@totalprd">
-                                            </div>
-                                        </li>
-
-                                    </ul>
-                                    <div class="buttons">
-                                        <button class="btn add-to-cart-btn" type="submit">Place order</button>
-
-                                    </div>
+                                        </tbody>
 
 
-
-                                </div>
+                                    </table>
 
 
                             </div>
 
-                            </form>
-    </div>
+                        </div>
+                    </div>
 
+
+
+                }
                 </div>
-            </div>
+                
 
         </div>
-
     </div>
-
     <!-- FOOTER -->
     <footer id="footer" class="footer layout-03">
         <div class="footer-content background-footer-03">
@@ -488,7 +432,6 @@
             </div>
         </div>
     </footer>
-
     <!--Footer For Mobile-->
     <div class="mobile-footer">
         <div class="mobile-footer-inner">
