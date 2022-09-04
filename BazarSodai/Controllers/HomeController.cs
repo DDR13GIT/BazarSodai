@@ -233,23 +233,13 @@ namespace BazarSodai.Controllers
         [HttpGet]
         public ActionResult ViewProduct()
         {
-            ProductModel product = new ProductModel();
-            product.Products=new List<Product>();
-            
-            var data=db.Products.ToList();
-            foreach(var item in data)
-            {
-                product.Products.Add(new Product
-                {
-                    ProducsName = item.ProducsName,
-                    ProductsPrice = item.ProductsPrice,
-                    ProductsWeight = item.ProductsWeight,
-                    ProductsImage=item.ProductsImage,
-                    ProductsStock=item.ProductsStock
+            dynamic newModel = new ExpandoObject();
+            var sqlquery = "select * from products ";
+            newModel.specificProduct = db.Products.SqlQuery(sqlquery).ToList();
 
-                });
-            }
-            return View(product);
+
+            return View(newModel);
+
         }
 
         [HttpPost]
