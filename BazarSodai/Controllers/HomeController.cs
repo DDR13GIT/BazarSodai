@@ -21,9 +21,6 @@ namespace BazarSodai.Controllers
         public ActionResult Index()
         {
             dynamic newModel = new ExpandoObject();
-
-
-
             newModel.categories = db.Categories.ToList();
             newModel.subcategories = db.SubCategories.ToList();
             return View(newModel);
@@ -38,6 +35,19 @@ namespace BazarSodai.Controllers
         {
             return View();
         }
+      
+        public ActionResult OrderHistory()
+        {
+            var sqlquery = "select * from [order] where UserEmail= '" + User.Identity.Name + "'";
+
+            List<Order> orders = db.Orders.SqlQuery(sqlquery).ToList();
+
+            return View(orders);
+
+
+        }
+
+
         [HttpPost]
         public ActionResult Checkout(Order ordt)
         {
@@ -61,6 +71,7 @@ namespace BazarSodai.Controllers
 
                 return RedirectToAction("Index");
             }
+         
             return View();
 
         }
@@ -244,23 +255,13 @@ namespace BazarSodai.Controllers
         [HttpGet]
         public ActionResult ViewProduct()
         {
-            ProductModel product = new ProductModel();
-            product.Products=new List<Product>();
-            
-            var data=db.Products.ToList();
-            foreach(var item in data)
-            {
-                product.Products.Add(new Product
-                {
-                    ProducsName = item.ProducsName,
-                    ProductsPrice = item.ProductsPrice,
-                    ProductsWeight = item.ProductsWeight,
-                    ProductsImage=item.ProductsImage,
-                    ProductsStock=item.ProductsStock
+            dynamic newModel = new ExpandoObject();
+            var sqlquery = "select * from products ";
+            newModel.specificProduct = db.Products.SqlQuery(sqlquery).ToList();
 
-                });
-            }
-            return View(product);
+
+            return View(newModel);
+
         }
 
         [HttpPost]
@@ -410,9 +411,9 @@ namespace BazarSodai.Controllers
            [HttpPost]
            public ActionResult remove(Product prd)
            {
-            //  db.Entry(prd).State = System.Data.Entity.EntityState.Deleted;
+           
             var obj = db.Products.Where(temp => temp.ProductsID == pid).FirstOrDefault();
-           db.Products.Remove(obj);
+            db.Products.Remove(obj);
             db.SaveChanges();
             return RedirectToAction("ViewProduct");
            

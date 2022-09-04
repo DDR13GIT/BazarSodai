@@ -13,7 +13,7 @@ namespace BazarSodai.Models
     using System.Collections.Generic;
     public class OrderModel
     {
-        public List<Order> os { get; set; }
+        public List<Order> orders{ get; set; }
     }
     public partial class Order
     {
