@@ -316,7 +316,7 @@
                                             <div class="subtotal-line">
 
                                                 <b class="stt-name">Subtotal</b>
-                                               
+                                               @try{
                                                     foreach (var carts in Model)
                                                     {
                                                         totalpr = totalpr + Convert.ToInt32(carts.ProductsPrice * carts.Quantity);
