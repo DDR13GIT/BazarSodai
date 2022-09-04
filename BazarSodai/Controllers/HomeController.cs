@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using BazarSodai.Models;
 using System.Web.Security;
 using System.Data.Entity.Validation;
+using System.Xml;
 
 namespace BazarSodai.Controllers
 {
@@ -21,10 +22,10 @@ namespace BazarSodai.Controllers
         {
             dynamic newModel = new ExpandoObject();
 
-           
-            
+
+
             newModel.categories = db.Categories.ToList();
-             newModel.subcategories = db.SubCategories.ToList();
+            newModel.subcategories = db.SubCategories.ToList();
             return View(newModel);
         }
 
@@ -42,26 +43,28 @@ namespace BazarSodai.Controllers
         {
             if (ModelState.IsValid)
             {
-               Order rt = new Order();
+                Order rt = new Order();
 
                 rt.DeliveryAddress = ordt.DeliveryAddress;
                 rt.TotalPrice = ordt.TotalPrice;
                 rt.UserEmail = User.Identity.Name;
-                DateTime now = DateTime.Now;
-                
 
-
-
-
-
+                string DateTime = System.DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
+                Console.WriteLine(DateTime);
+                rt.OrderDate = DateTime;
 
                 db.Orders.Add(rt);
                 db.SaveChanges();
-                return View();
+
+                db.Carts.RemoveRange(db.Carts.Where(c => c.UsersEmail == User.Identity.Name));
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
             }
             return View();
 
         }
+
         [Authorize]
         public ActionResult Checkout()
         {
@@ -71,15 +74,15 @@ namespace BazarSodai.Controllers
             List<Cart> carts = db.Carts.SqlQuery(sqlquery).ToList();
 
             return View(carts);
-          
+
         }
         public ActionResult Cart()
         {
-            
-              var sqlquery = "select * from cart where UsersEmail= '"+ User.Identity.Name + "'";
-      
+
+            var sqlquery = "select * from cart where UsersEmail= '" + User.Identity.Name + "'";
+
             List<Cart> carts = db.Carts.SqlQuery(sqlquery).ToList();
-            
+
             return View(carts);
 
         }
@@ -98,8 +101,8 @@ namespace BazarSodai.Controllers
             temp.UsersPassword == newUser.UsersPassword).ToList();
             while (userAccounts.Count > 0)
             {
-                FormsAuthentication.SetAuthCookie(newUser.UsersEmail,false);
-                
+                FormsAuthentication.SetAuthCookie(newUser.UsersEmail, false);
+
                 return RedirectToAction("Index", "Home");
 
             }
@@ -143,7 +146,7 @@ namespace BazarSodai.Controllers
             return View(newModel);
         }
 
-       
+
         public ActionResult Subcategory(int? id)
         {
             dynamic newModel = new ExpandoObject();
@@ -161,6 +164,9 @@ namespace BazarSodai.Controllers
 
             var sqlquery1 = "select * from products";
             newModel.allProducts = db.Products.SqlQuery(sqlquery1).ToList();
+
+            var sqlquery2 = "select * from review";
+            newModel.specificReview = db.Reviews.SqlQuery(sqlquery2).ToList();
 
             return View(newModel);
 
@@ -199,14 +205,26 @@ namespace BazarSodai.Controllers
                         }
                     }
                 }
-             
-                return View();
+
+                Response.Redirect("https://localhost:44375/Home/Index");
             }
             return View();
         }
 
 
-
+        //[HttpPost, ActionName("Review")]
+    
+        //public ActionResult ProductDetails([Bind(Include = "ProductID, UserName, UserEmail, Comment")] Review newReview)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Reviews.Add(newReview);
+        //        db.SaveChanges();
+        //        return View();
+        //    }
+        //    return View();
+        //}
+    
         //******************************************  Admin part  *********************************************
         public ActionResult Authloginbasic()
         {

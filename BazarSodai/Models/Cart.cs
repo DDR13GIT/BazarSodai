@@ -11,8 +11,11 @@ namespace BazarSodai.Models
 {
     using System;
     using System.Collections.Generic;
+    public class CartModel
+    {
+        public List<Cart> Carts { get; set; }
+    }
 
- 
     public partial class Cart
     {
         public int CartID { get; set; }
