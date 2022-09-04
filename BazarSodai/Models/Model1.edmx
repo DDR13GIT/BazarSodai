@@ -33,11 +33,12 @@
           <Property Name="UserEmail" Type="varchar(max)" />
           <Property Name="DeliveryAddress" Type="varchar(max)" />
           <Property Name="TotalPrice" Type="int" />
-          <Property Name="OrderDate" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="OrderDate" Type="varchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'ShopDatabase.dbo.OrderDetails' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="OrderDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
           <Property Name="OrderID" Type="int" />
           <Property Name="UsersEmail" Type="varchar(max)" />
           <Property Name="ProductID" Type="int" />
@@ -45,7 +46,8 @@ warning 6013: The table/view 'ShopDatabase.dbo.OrderDetails' does not have a pri
           <Property Name="ProductdPrice" Type="int" />
           <Property Name="ProductName" Type="varchar(max)" />
           <Property Name="ProductsImage" Type="varchar(max)" />
-        </EntityType>-->
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="ProductsID" />
@@ -58,6 +60,16 @@ warning 6013: The table/view 'ShopDatabase.dbo.OrderDetails' does not have a pri
           <Property Name="ProductsStock" Type="int" />
           <Property Name="CategoryID" Type="int" />
           <Property Name="SubCategoryID" Type="int" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="UserName" Type="varchar(max)" />
+          <Property Name="UserEmail" Type="varchar(max)" />
+          <Property Name="Comment" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="SubCategory">
           <Key>
@@ -129,7 +141,9 @@ warning 6013: The table/view 'ShopDatabase.dbo.OrderDetails' does not have a pri
           <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubCategory" EntityType="Self.SubCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Products_Category" Association="Self.FK_Products_Category">
@@ -157,7 +171,9 @@ warning 6013: The table/view 'ShopDatabase.dbo.OrderDetails' does not have a pri
           <EntitySet Name="Carts" EntityType="ShopDatabaseModel.Cart" />
           <EntitySet Name="Categories" EntityType="ShopDatabaseModel.Category" />
           <EntitySet Name="Orders" EntityType="ShopDatabaseModel.Order" />
+          <EntitySet Name="OrderDetails" EntityType="ShopDatabaseModel.OrderDetail" />
           <EntitySet Name="Products" EntityType="ShopDatabaseModel.Product" />
+          <EntitySet Name="Reviews" EntityType="ShopDatabaseModel.Review" />
           <EntitySet Name="SubCategories" EntityType="ShopDatabaseModel.SubCategory" />
           <EntitySet Name="Users" EntityType="ShopDatabaseModel.User" />
           <AssociationSet Name="ProductsID_FK" Association="ShopDatabaseModel.ProductsID_FK">
@@ -208,7 +224,20 @@ warning 6013: The table/view 'ShopDatabase.dbo.OrderDetails' does not have a pri
           <Property Name="UserEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DeliveryAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TotalPrice" Type="Int32" />
-          <Property Name="OrderDate" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="OrderDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="UsersEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="ProductdPrice" Type="Int32" />
+          <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProductsImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -225,6 +254,16 @@ warning 6013: The table/view 'ShopDatabase.dbo.OrderDetails' does not have a pri
           <NavigationProperty Name="Carts" Relationship="ShopDatabaseModel.ProductsID_FK" FromRole="Product" ToRole="Cart" />
           <NavigationProperty Name="Category" Relationship="ShopDatabaseModel.FK_Products_Category" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="SubCategory" Relationship="ShopDatabaseModel.FK_SubcategoryID" FromRole="Product" ToRole="SubCategory" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SubCategory">
           <Key>
@@ -333,6 +372,20 @@ warning 6013: The table/view 'ShopDatabase.dbo.OrderDetails' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="ShopDatabaseModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProductsImage" ColumnName="ProductsImage" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductdPrice" ColumnName="ProductdPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="UsersEmail" ColumnName="UsersEmail" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="ShopDatabaseModel.Product">
               <MappingFragment StoreEntitySet="Products">
@@ -344,6 +397,17 @@ warning 6013: The table/view 'ShopDatabase.dbo.OrderDetails' does not have a pri
                 <ScalarProperty Name="ProductsPrice" ColumnName="ProductsPrice" />
                 <ScalarProperty Name="ProducsName" ColumnName="ProducsName" />
                 <ScalarProperty Name="ProductsID" ColumnName="ProductsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="ShopDatabaseModel.Review">
+              <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

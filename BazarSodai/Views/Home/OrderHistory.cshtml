@@ -1,4 +1,4 @@
-﻿
+﻿@model List<BazarSodai.Models.Order>
 @{
     Layout = null;
 
@@ -239,84 +239,81 @@
 
                 <!--Cart Table-->
 
-               
-                    <div class="shopping-cart-container">
-                        <div class="row">
-                            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-                                <h3 class="box-title">Your ordered items</h3>
-                               
+
+                <div class="shopping-cart-container">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                            <h3 class="box-title">Your ordered items</h3>
 
 
-                                    <table class="shop_table cart-form">
-                                        <thead>
-                                            <tr>
-                                                <th class="product-name">Order ID</th>
-                                                <th class="product-price">Delivery Address</th>
-                                                <th class="product-quantity">Order Date</th>
-                                                <th class="product-subtotal">Total Price</th>
+
+                            <table class="shop_table cart-form">
+                                <thead>
+                                    <tr>
+                                        <th class="product-name">Order ID</th>
+                                        <th class="product-price">Delivery Address</th>
+                                        <th class="product-quantity">Order Date</th>
+                                        <th class="product-subtotal">Total Price</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    @try
+                                    {
+                                        foreach (var orders in Model)
+                                        {
+                                            <tr class="cart_item">
+                                                <td class="product-price" data-title="Price">
+                                                    <div class="price price-contain">
+                                                        <ins><span class="price-amount">@orders.OrderID</span></ins>
+
+                                                    </div>
+                                                </td>
+                                                <td class="product-price" data-title="Price">
+                                                    <div class="price price-contain">
+                                                        <ins><span class="price-amount">@orders.DeliveryAddress</span></ins>
+
+                                                    </div>
+                                                </td>
+                                                <td class="product-quantity" data-title="Quantity">
+                                                    <div class="price price-contain">
+                                                        <ins><span class="price-amount">@orders.OrderDate</span></ins>
+
+                                                    </div>
+                                                </td>
+                                                <td class="product-subtotal" data-title="Total">
+                                                    <div class="price price-contain">
+                                                        <ins><span class="price-amount">@orders.TotalPrice</span></ins>
+
+                                                    </div>
+                                                </td>
                                             </tr>
-                                        </thead>
 
-                                        <tbody>
-
-                                            @try
-                                            {
-                                                foreach (var orders in Model)
-                                                {
-                                                    <tr class="cart_item">
-                                                        <td class="product-thumbnail" data-title="Product Name">
-
-                                                            <a class="prd-name" href="#">@orders.OrderID</a>
-
-                                                        </td>
-                                                        <td class="product-price" data-title="Price">
-                                                            <div class="price price-contain">
-                                                                <ins><span class="price-amount"><span class="currencySymbol">৳</span>@orders.DeliveryAddress</span></ins>
-
-                                                            </div>
-                                                        </td>
-                                                        <td class="product-quantity" data-title="Quantity">
-                                                            <div class="quantity-box type1">
-                                                                <div class="qty-input">
-                                                                    <input type="text" name="Quantity" value="@orders.OrderDate " data-max_value="20" data-min_value="1" data-step="1">
-                                                                    <a href="#" class="qty-btn btn-up"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
-                                                                    <a href="#" class="qty-btn btn-down"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td class="product-subtotal" data-title="Total">
-                                                            <div class="price price-contain">
-
-                                                                <ins><span class="price-amount"><span class="currencySymbol">৳</span>@orders.TotalPrice</span></ins>
-
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-
-                                                }
-                                            }
-                                            catch (Exception e)
-                                            {
-                                                Console.WriteLine(e);
-                                            }
+                                        }
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Console.WriteLine(e);
+                                    }
 
 
-                                        </tbody>
+                                </tbody>
 
 
-                                    </table>
+                            </table>
 
-
-                            </div>
 
                         </div>
+
                     </div>
-
-
-
-                }
                 </div>
+
+
+
                 
+            </div>
+
 
         </div>
     </div>

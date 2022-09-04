@@ -11,16 +11,13 @@ namespace BazarSodai.Models
 {
     using System;
     using System.Collections.Generic;
-    public class OrderModel
+    
+    public partial class Review
     {
-        public List<Order> orders{ get; set; }
-    }
-    public partial class Order
-    {
-        public int OrderID { get; set; }
+        public int ReviewID { get; set; }
+        public Nullable<int> ProductID { get; set; }
+        public string UserName { get; set; }
         public string UserEmail { get; set; }
-        public string DeliveryAddress { get; set; }
-        public Nullable<int> TotalPrice { get; set; }
-        public string OrderDate { get; set; }
+        public string Comment { get; set; }
     }
 }

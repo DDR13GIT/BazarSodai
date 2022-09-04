@@ -21,8 +21,7 @@ namespace BazarSodai.Controllers
         {
             dynamic newModel = new ExpandoObject();
 
-           
-            
+         
             newModel.categories = db.Categories.ToList();
              newModel.subcategories = db.SubCategories.ToList();
             return View(newModel);
@@ -40,12 +39,13 @@ namespace BazarSodai.Controllers
       
         public ActionResult OrderHistory()
         {
+            var sqlquery = "select * from [order] where UserEmail= '" + User.Identity.Name + "'";
 
-            var sqlquery2 = "Select * from Order  where UserEmail= '" + User.Identity.Name + "'";
-
-            List<Order> orders = db.Orders.SqlQuery(sqlquery2).ToList();
+            List<Order> orders = db.Orders.SqlQuery(sqlquery).ToList();
 
             return View(orders);
+
+
         }
 
 
@@ -399,9 +399,9 @@ namespace BazarSodai.Controllers
            [HttpPost]
            public ActionResult remove(Product prd)
            {
-            //  db.Entry(prd).State = System.Data.Entity.EntityState.Deleted;
+           
             var obj = db.Products.Where(temp => temp.ProductsID == pid).FirstOrDefault();
-           db.Products.Remove(obj);
+            db.Products.Remove(obj);
             db.SaveChanges();
             return RedirectToAction("ViewProduct");
            
