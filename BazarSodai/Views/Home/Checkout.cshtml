@@ -101,14 +101,6 @@
                                 </a>
                             </li>
                         }
-
-
-
-
-
-
-
-
                     </ul>
                 </div>
             </div>
@@ -233,9 +225,9 @@
             </ul>
         </nav>
     </div>
+    <form action="Checkout" name="frm-login" method="post">
+        <div class="page-contain checkout">
 
-    <div class="page-contain checkout">
-        <form action="Checkout" name="frm-login" method="post">
             <!-- Main content -->
             <div id="main-content" class="main-content">
                 <div class="container sm-margin-top-37px">
@@ -245,7 +237,7 @@
                         <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
                             <div class="checkout-progress-wrap">
                                 <ul class="steps">
-                                 
+
                                     <li class="step 2nd">
                                         <div class="checkout-act active">
                                             <h3 class="title-box"><span class="number">2</span>Delivery</h3>
@@ -290,7 +282,9 @@
                                     <ul class="cart-list">
                                         @try
                                         {
+
                                              foreach (var carts in Model)
+
                                             {
                                                 <li class="cart-elem">
                                                     <div class="cart-item">
@@ -311,27 +305,33 @@
                                                 </li>
                                             }
                                         }
-                                        catch (Exception e)
+                                        catch (NullReferenceException e)
                                         {
                                             Console.WriteLine(e);
                                         }
-                                        </ul>
-                                  
+                                    </ul>
+
                                     <ul class="subtotal">
                                         <li>
                                             <div class="subtotal-line">
 
                                                 <b class="stt-name">Subtotal</b>
-                                                @foreach (var carts in Model)
-                                                {
-                                                    totalpr = totalpr + Convert.ToInt32(carts.ProductsPrice * carts.Quantity);
+                                               
+                                                    foreach (var carts in Model)
+                                                    {
+                                                        totalpr = totalpr + Convert.ToInt32(carts.ProductsPrice * carts.Quantity);
 
+                                                    }
+                                                }
+                                                catch (NullReferenceException e)
+                                                {
+                                                    Console.WriteLine(e);
                                                 }
                                                 <span class="stt-price">৳ @totalpr</span>
 
                                             </div>
                                         </li>
-                                       <li>
+                                        <li>
                                             <div class="subtotal-line">
                                                 <b class="stt-name">Shipping</b>
                                                 <span class="stt-price">৳ 60.00</span>
@@ -345,8 +345,8 @@
                                                 @{
                                                     totalprd = Convert.ToInt32(totalpr + sp);
                                                 }
-                                                <span class="stt-price"  > ৳ @totalprd</span>
-                                                <input type="hidden"  name="TotalPrice" value="@totalprd">
+                                                <span class="stt-price"> ৳ @totalprd</span>
+                                                <input type="hidden" name="TotalPrice" value="@totalprd">
                                             </div>
                                         </li>
 
@@ -363,13 +363,13 @@
 
                             </div>
 
-                            </form>
+    </form>
     </div>
 
-                </div>
-            </div>
+    </div>
+    </div>
 
-        </div>
+    </div>
 
     </div>
 

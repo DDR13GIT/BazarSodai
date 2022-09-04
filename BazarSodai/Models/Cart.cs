@@ -15,6 +15,7 @@ namespace BazarSodai.Models
     {
         public List<Cart> Carts { get; set; }
     }
+
     public partial class Cart
     {
         public int CartID { get; set; }
