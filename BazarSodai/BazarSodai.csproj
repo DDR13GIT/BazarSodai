@@ -157,7 +157,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderDetail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Review.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SubCategory.cs">
@@ -414,6 +423,7 @@
     <None Include="Views\Home\Authregisterbasic.cshtml" />
     <Content Include="Views\Home\ViewProduct.cshtml" />
     <Content Include="Views\Home\remove.cshtml" />
+    <Content Include="Views\Home\OrderHistory.cshtml" />
     <None Include="Views\Home\ViewCategory.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
