@@ -1,3 +1,4 @@
+![](https://cdn.discordapp.com/attachments/715542309588172824/1017800062602051624/bazarsodailogo.png)
 # BazarSodai
 
 
